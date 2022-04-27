@@ -1,6 +1,8 @@
 {
   "version": 2,
   "projects": {
-    "api": "apps/api"
+    "api": "apps/api",
+    "tweeter-mobile": "apps/tweeter-mobile",
+    "tweeter-mobile-e2e": "apps/tweeter-mobile-e2e"
   }
 }
