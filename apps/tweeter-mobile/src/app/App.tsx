@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Linking,
 } from 'react-native';
+import { useTailwind } from 'tailwind-rn';
 
 import Checkmark from './icons/checkmark.svg';
 import Book from './icons/book.svg';
@@ -27,6 +28,7 @@ import Heart from './icons/heart.svg';
 export const App = () => {
   const [whatsNextYCoord, setWhatsNextYCoord] = useState<number>(0);
   const scrollViewRef = useRef<null | ScrollView>(null);
+  const tailwind = useTailwind();
 
   return (
     <>
@@ -44,6 +46,9 @@ export const App = () => {
             <Text style={[styles.textXL, styles.appTitleText]} testID="heading">
               Welcome TweeterMobile 👋
             </Text>
+          </View>
+          <View style={tailwind('bg-dark-gray px-3 py-1 rounded-full')}>
+            <Text style={tailwind('text-blue')}>Hello Tailwind</Text>
           </View>
           <View style={styles.section}>
             <View style={styles.hero}>

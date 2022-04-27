@@ -1,0 +1,27 @@
+.flex {
+  display: flex
+}
+
+.rounded-full {
+  border-radius: 9999px
+}
+
+.bg-dark-gray {
+  --tw-bg-opacity: 1;
+  background-color: rgb(101 119 134 / var(--tw-bg-opacity))
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem
+}
+
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem
+}
+
+.text-blue {
+  --tw-text-opacity: 1;
+  color: rgb(29 161 242 / var(--tw-text-opacity))
+}

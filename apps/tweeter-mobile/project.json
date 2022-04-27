@@ -12,7 +12,24 @@
     "serve": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "nx start tweeter-mobile"
+        "commands": [
+          "nx run tweeter-mobile:tailwind-dev",
+          "nx start tweeter-mobile"
+        ]
+      }
+    },
+    "tailwind-dev": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "cwd": "apps/tweeter-mobile",
+        "command": "concurrently \"tailwindcss --input input.css --output tailwind.css --no-autoprefixer --watch\" \"tailwind-rn --watch\""
+      }
+    },
+    "tailwind-build": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "cwd": "apps/tweeter-mobile",
+        "command": "tailwindcss --input input.css --output tailwind.css --no-autoprefixer && tailwind-rn"
       }
     },
     "run-ios": {
