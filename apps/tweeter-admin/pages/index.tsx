@@ -1,4 +1,5 @@
 import styles from './index.module.css';
+import { Test } from '../components/Test';
 
 export function Index() {
   /*
@@ -8,6 +9,7 @@ export function Index() {
    */
   return (
     <div className={styles.page}>
+      <Test />
       <div className="wrapper">
         <div className="container">
           <div id="welcome">
