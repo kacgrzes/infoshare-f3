@@ -1,0 +1,83 @@
+{
+  "root": "apps/tweeter-web",
+  "sourceRoot": "apps/tweeter-web/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/tweeter-web",
+        "index": "apps/tweeter-web/src/index.html",
+        "baseHref": "/",
+        "main": "apps/tweeter-web/src/main.tsx",
+        "polyfills": "apps/tweeter-web/src/polyfills.ts",
+        "tsConfig": "apps/tweeter-web/tsconfig.app.json",
+        "assets": [
+          "apps/tweeter-web/src/favicon.ico",
+          "apps/tweeter-web/src/assets"
+        ],
+        "styles": [],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/tweeter-web/src/environments/environment.ts",
+              "with": "apps/tweeter-web/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "tweeter-web:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "tweeter-web:build:development"
+        },
+        "production": {
+          "buildTarget": "tweeter-web:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/tweeter-web/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/tweeter-web"],
+      "options": {
+        "jestConfig": "apps/tweeter-web/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
