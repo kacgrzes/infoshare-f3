@@ -2,6 +2,8 @@
   "version": 2,
   "projects": {
     "api": "apps/api",
+    "tweeter-admin": "apps/tweeter-admin",
+    "tweeter-admin-e2e": "apps/tweeter-admin-e2e",
     "tweeter-mobile": "apps/tweeter-mobile",
     "tweeter-mobile-e2e": "apps/tweeter-mobile-e2e",
     "tweeter-web": "apps/tweeter-web",
