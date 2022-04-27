@@ -10,6 +10,7 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
+  webpack: require('../../custom-webpack.config'),
 };
 
 module.exports = withNx(nextConfig);
