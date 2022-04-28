@@ -1,4 +1,9 @@
 {
+	"mt-4": {
+		"style": {
+			"marginTop": 16
+		}
+	},
 	"flex": {
 		"style": {
 			"display": "flex"
@@ -7,6 +12,11 @@
 	"h-11": {
 		"style": {
 			"height": 44
+		}
+	},
+	"h-52": {
+		"style": {
+			"height": 208
 		}
 	},
 	"max-h-11": {
@@ -40,6 +50,14 @@
 			"borderTopRightRadius": 9999,
 			"borderBottomRightRadius": 9999,
 			"borderBottomLeftRadius": 9999
+		}
+	},
+	"border": {
+		"style": {
+			"borderTopWidth": 1,
+			"borderRightWidth": 1,
+			"borderBottomWidth": 1,
+			"borderLeftWidth": 1
 		}
 	},
 	"bg-dark-gray": {

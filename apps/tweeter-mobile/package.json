@@ -10,6 +10,12 @@
     "react-native-config": "*",
     "react-native-svg": "*",
     "@react-native-async-storage/async-storage": "*",
-    "tailwind-rn": "*"
+    "tailwind-rn": "*",
+    "@testing-library/react": "*",
+    "@nrwl/react": "*",
+    "@react-navigation/native": "*",
+    "@react-navigation/native-stack": "*",
+    "react-native-safe-area-context": "*",
+    "react-native-screens": "*"
   }
 }

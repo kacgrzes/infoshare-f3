@@ -1,5 +1,4 @@
 import styles from './index.module.css';
-import { Test } from '../components/Test';
 import { Button } from '@infoshare-f3/shared-ui';
 
 export function Index() {
@@ -10,7 +9,6 @@ export function Index() {
    */
   return (
     <div className={styles.page}>
-      <Test />
       <Button />
       <div className="wrapper">
         <div className="container">

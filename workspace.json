@@ -2,6 +2,7 @@
   "version": 2,
   "projects": {
     "api": "apps/api",
+    "shared-types": "libs/shared/types",
     "shared-ui": "libs/shared/ui",
     "tweeter-admin": "apps/tweeter-admin",
     "tweeter-admin-e2e": "apps/tweeter-admin-e2e",

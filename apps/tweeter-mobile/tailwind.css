@@ -1,9 +1,17 @@
+.mt-4 {
+  margin-top: 1rem
+}
+
 .flex {
   display: flex
 }
 
 .h-11 {
   height: 2.75rem
+}
+
+.h-52 {
+  height: 13rem
 }
 
 .max-h-11 {
@@ -28,6 +36,10 @@
 
 .rounded-full {
   border-radius: 9999px
+}
+
+.border {
+  border-width: 1px
 }
 
 .bg-dark-gray {
