@@ -556,4 +556,12 @@ npm install tailwindcss@latest postcss@latest autoprefixer@latest concurrently@l
 
 ---
 
+Tworzenie biblioteki UI
+
+```sh
+npx nx g @nrwl/react:lib ui
+```
+
+---
+
 ## The End

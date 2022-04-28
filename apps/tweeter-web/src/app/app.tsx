@@ -2,10 +2,12 @@ import './app.css';
 import NxWelcome from './nx-welcome';
 
 import { Route, Routes, Link } from 'react-router-dom';
+import { TestComponent } from '@infoshare-f3/shared-ui';
 
 export function App() {
   return (
     <>
+      <TestComponent />
       <NxWelcome title="tweeter-web" />
       <div />
 

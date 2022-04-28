@@ -1,5 +1,3 @@
-const { createGlobPatternsForDependencies } = require('@nrwl/react/tailwind');
-
 /** @type {import('tailwindcss/tailwind-config').TailwindConfig} */
 const config = {
   theme: {
@@ -21,9 +19,4 @@ const config = {
   },
 };
 
-module.exports = (dirPath) => {
-  return {
-    ...config,
-    content: [...createGlobPatternsForDependencies(dirPath)],
-  };
-};
+module.exports = config;

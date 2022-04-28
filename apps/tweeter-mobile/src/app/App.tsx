@@ -11,6 +11,7 @@ import {
   Linking,
 } from 'react-native';
 import { useTailwind } from 'tailwind-rn';
+import { Button } from '@infoshare-f3/shared-ui';
 
 import Checkmark from './icons/checkmark.svg';
 import Book from './icons/book.svg';
@@ -41,6 +42,7 @@ export const App = () => {
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}
         >
+          <Button />
           <View style={styles.section}>
             <Text style={styles.textLg}>Hello there,</Text>
             <Text style={[styles.textXL, styles.appTitleText]} testID="heading">
