@@ -1,11 +1,14 @@
 // https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/user
 export type User = {
   id: string;
-  createdAt: string;
+  createdAt: Date;
   name: string;
   username: string;
   profileImageUrl: string;
   followersCount: number;
+  likedTweetsIds: string[];
+  followersIds: string[];
+  followingIds: string[];
 };
 
 // https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/tweet
@@ -15,11 +18,13 @@ export type Tweet = {
   text: string;
   authorId: string;
   replyCount: number;
-  favorited: boolean;
-  favoriteCount: number;
+  likedCount: number;
 };
 
-export type TweetProps = {
-  tweet: Tweet;
-  onPress: () => void;
-};
+export type Comment = {
+  id: string;
+  tweetId: string;
+  createdAt: Date;
+  text: string;
+  authorId: string;
+}
