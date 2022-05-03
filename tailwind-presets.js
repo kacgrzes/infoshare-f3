@@ -8,8 +8,8 @@ const config = {
         'dark-gray': '#657786',
         gray: '#AAB8C2',
         'light-gray': '#E1E8ED',
-        white: '#F5F8FA',
-        red: '#FF0000',
+        'almost-white': '#F5F8FA',
+        white: '#FFFFFF',
       },
       fontFamily: {
         sans: ['Graphik', 'sans-serif'],
