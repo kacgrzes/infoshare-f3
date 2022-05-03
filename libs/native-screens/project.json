@@ -1,0 +1,23 @@
+{
+  "root": "libs/native-screens",
+  "sourceRoot": "libs/native-screens/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/native-screens/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/native-screens"],
+      "options": {
+        "jestConfig": "libs/native-screens/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}
