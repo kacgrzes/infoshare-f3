@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native';
-import { Root } from './app/Root';
+import { Root } from './Root';
 
 AppRegistry.registerComponent('TweeterMobile', () => Root);
