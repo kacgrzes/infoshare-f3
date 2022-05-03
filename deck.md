@@ -302,7 +302,7 @@ nx g remove booking-some-library
 ## Aplikacja tweeter (klon twittera)
 
 - kazdy moze czytac tweety
-- zalogowany user moze dodawac, like'owac, komentowac tweety
+- zalogowany user moze dodawac, like'owac, "komentowac" tweety
 - admin moze blokowac tweety
 
 ---
@@ -560,6 +560,14 @@ Tworzenie biblioteki UI
 
 ```sh
 npx nx g @nrwl/react:lib ui
+```
+
+---
+
+## Tworzenie generatora
+
+```sh
+nx generate @nrwl/workspace:workspace-generator my-generator
 ```
 
 ---
