@@ -8,17 +8,17 @@ datasource db {
 }
 
 model Like {
-  id      Int   @id @default(autoincrement())
-  userId  Int
-  tweetId Int
-  tweet   Tweet @relation(fields: [tweetId], references: [id])
-  user    User  @relation(fields: [userId], references: [id])
+  id      String @id @default(cuid())
+  userId  String
+  tweetId String
+  tweet   Tweet  @relation(fields: [tweetId], references: [id])
+  user    User   @relation(fields: [userId], references: [id])
 
   @@unique(fields: [userId, tweetId], name: "likeId")
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
+  id       String    @id @default(cuid())
   username String    @unique
   password String
   comments Comment[]
@@ -27,21 +27,21 @@ model User {
 }
 
 model Tweet {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @default(cuid())
   createdAt DateTime  @default(now())
   text      String
-  userId    Int
+  userId    String
   user      User      @relation(fields: [userId], references: [id])
   comments  Comment[]
   likedBy   Like[]
 }
 
 model Comment {
-  authorId  Int
-  id        Int      @id @default(autoincrement())
+  authorId  String
+  id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   text      String
-  tweetId   Int
+  tweetId   String
   author    User     @relation(fields: [authorId], references: [id])
   tweet     Tweet    @relation(fields: [tweetId], references: [id])
 }
