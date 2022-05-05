@@ -31,7 +31,7 @@ export const tweetsController = {
     return res.status(200).json(newTweet);
   },
   like: async (req: Request, res: Response) => {
-    const tweetId = parseInt(req.params.tweetId);
+    const tweetId = req.params.tweetId;
     const userId = req.user.id;
 
     await prisma.like.upsert({
@@ -67,7 +67,7 @@ export const tweetsController = {
     });
   },
   unlike: async (req: Request, res: Response) => {
-    const tweetId = parseInt(req.params.tweetId);
+    const tweetId = req.params.tweetId;
     const userId = req.user.id;
 
     try {

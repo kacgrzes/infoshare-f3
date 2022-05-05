@@ -1,6 +1,12 @@
+import { Request, Response, NextFunction } from 'express';
+import { AnyObjectSchema } from 'yup';
 import * as jwt from 'jsonwebtoken';
 
-export function authenticateToken(req, res, next) {
+export function authenticateToken(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
@@ -14,3 +20,20 @@ export function authenticateToken(req, res, next) {
     next();
   });
 }
+
+export const validate =
+  (schema: AnyObjectSchema) =>
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      await schema.validate({
+        body: req.body,
+        params: req.params,
+        query: req.query,
+      });
+      next();
+    } catch (error) {
+      return res.status(400).json({
+        errors: error.errors,
+      });
+    }
+  };

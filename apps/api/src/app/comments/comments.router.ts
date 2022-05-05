@@ -22,7 +22,7 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 router.post('/', async (req: Request, res: Response) => {
-  const tweetId = parseInt(req.params.tweetId);
+  const tweetId = req.params.tweetId;
   const { text } = req.body;
   const author = req.user;
 

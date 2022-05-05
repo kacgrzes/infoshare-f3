@@ -1,3 +1,4 @@
+import faker from '@faker-js/faker';
 import { prisma } from '../prisma';
 import {
   cleanup,
@@ -55,7 +56,7 @@ describe('Tweets', () => {
   });
   describe('post tweet', () => {
     test('returns 401 when trying to create tweet without token', async () => {
-      const response = await postTweet();
+      const response = await postTweet({ text: 'Example tweet' });
 
       expect(response.statusCode).toBe(401);
     });
@@ -63,13 +64,39 @@ describe('Tweets', () => {
       await signUp();
       const loginResponse = await login();
       const token = loginResponse.body.token;
-      const response = await postTweet(token);
+      const response = await postTweet({ text: 'Example tweet' }, token);
       const keys = new Set(Object.keys(response.body));
       const user = await prisma.user.findFirst();
 
       expect(response.statusCode).toBe(200);
       expect(keys).toEqual(new Set(['id', 'userId', 'createdAt', 'text']));
       expect(response.body.userId).toBe(user.id);
+    });
+    test('Cannot create tweet with empty text', async () => {
+      await signUp();
+      const loginResponse = await login();
+      const token = loginResponse.body.token;
+      const response = await postTweet({ text: '' }, token);
+
+      expect(response.statusCode).toBe(400);
+      expect(response.body.errors).toHaveLength(1);
+      expect(response.body.errors[0]).toBe('tweet is a required field');
+    });
+
+    test('Cannot create tweet longer than 160 characters', async () => {
+      await signUp();
+      const loginResponse = await login();
+      const token = loginResponse.body.token;
+      const response = await postTweet(
+        { text: faker.lorem.sentences(20) },
+        token
+      );
+
+      expect(response.statusCode).toBe(400);
+      expect(response.body.errors).toHaveLength(1);
+      expect(response.body.errors[0]).toBe(
+        'tweet must be at most 160 characters'
+      );
     });
   });
 

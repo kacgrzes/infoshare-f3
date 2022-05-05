@@ -4,6 +4,7 @@ export type User = {
   createdAt: Date;
   name: string;
   username: string;
+  password: string;
   profileImageUrl: string;
   followersCount: number;
   likedTweetsIds: string[];
@@ -27,4 +28,4 @@ export type Comment = {
   createdAt: Date;
   text: string;
   authorId: string;
-}
+};

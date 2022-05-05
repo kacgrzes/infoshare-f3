@@ -5,7 +5,8 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "seed": "ts-node --project ./apps/api/tsconfig.spec.json -r tsconfig-paths/register apps/api/prisma/seed.ts"
   },
   "private": true,
   "devDependencies": {
@@ -33,6 +34,7 @@
     "@testing-library/react": "13.1.1",
     "@testing-library/react-native": "9.1.0",
     "@types/bcrypt": "^5.0.0",
+    "@types/cuid": "^2.0.1",
     "@types/express": "4.17.13",
     "@types/jest": "27.4.1",
     "@types/jsonwebtoken": "^8.5.8",
@@ -44,6 +46,7 @@
     "@types/react-router-dom": "5.3.3",
     "@types/supertest": "^2.0.12",
     "@types/tailwindcss": "^3.0.10",
+    "@types/yup": "^0.29.13",
     "@typescript-eslint/eslint-plugin": "~5.18.0",
     "@typescript-eslint/parser": "~5.18.0",
     "autoprefixer": "^10.4.5",
@@ -55,7 +58,6 @@
     "eslint": "~8.12.0",
     "eslint-config-next": "12.1.5",
     "eslint-config-prettier": "8.1.0",
-    "eslint-plugin-cypress": "^2.10.3",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jsx-a11y": "6.5.1",
     "eslint-plugin-react": "7.29.4",
@@ -88,14 +90,17 @@
     "@react-navigation/bottom-tabs": "^6.3.1",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
+    "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
     "core-js": "^3.6.5",
+    "cuid": "^2.1.8",
     "express": "4.17.2",
     "jsonwebtoken": "^8.5.1",
     "next": "12.1.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-hook-form": "^7.30.0",
     "react-native": "0.68.1",
     "react-native-safe-area-context": "^4.2.5",
     "react-native-screens": "^3.13.1",
@@ -104,6 +109,7 @@
     "react-router-dom": "6.3.0",
     "regenerator-runtime": "0.13.7",
     "tailwind-rn": "^4.2.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "yup": "^0.32.11"
   }
 }

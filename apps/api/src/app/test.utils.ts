@@ -82,9 +82,9 @@ export const getTweets = async (
   return await tweetsRequest;
 };
 
-export const postTweet = async (token?: string) => {
+export const postTweet = async ({ text }: { text: string }, token?: string) => {
   const createTweetRequest = agent.post('/api/1.0/tweets').send({
-    text: 'Example tweet',
+    text,
   });
   if (token) {
     createTweetRequest.set('Authorization', `Bearer ${token}`);

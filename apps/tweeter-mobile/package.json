@@ -18,6 +18,7 @@
     "react-native-safe-area-context": "*",
     "react-native-screens": "*",
     "@faker-js/faker": "*",
-    "react-native-vector-icons": "*"
+    "react-native-vector-icons": "*",
+    "cuid": "*"
   }
 }

@@ -1,14 +1,22 @@
 import { User, Tweet, Comment } from '@infoshare-f3/shared-types';
 import faker from '@faker-js/faker';
+import { generateRandomId } from './generateRandomId';
 
-const createRandomUser = (): User => {
+const createRandomUser = ({
+  username = faker.internet.userName(),
+  password = faker.internet.password(),
+}: {
+  username?: string;
+  password?: string;
+}): User => {
   return {
-    id: faker.database.mongodbObjectId(),
+    id: generateRandomId(),
     createdAt: faker.date.recent(),
     followersCount: 0,
     name: faker.name.findName(),
     profileImageUrl: faker.internet.avatar(),
-    username: faker.internet.userName(),
+    username,
+    password,
     likedTweetsIds: [],
     followersIds: [],
     followingIds: [],
@@ -17,7 +25,7 @@ const createRandomUser = (): User => {
 
 const createRandomTweet = (authorId: string): Tweet => {
   return {
-    id: faker.database.mongodbObjectId(),
+    id: generateRandomId(),
     createdAt: faker.date.recent(),
     likedCount: 0,
     replyCount: 15,
@@ -34,7 +42,7 @@ const createRandomComment = ({
   tweetId: string;
 }): Comment => {
   return {
-    id: faker.database.mongodbObjectId(),
+    id: generateRandomId(),
     authorId,
     tweetId,
     createdAt: faker.date.recent(),
@@ -42,7 +50,13 @@ const createRandomComment = ({
   };
 };
 
-export const users = new Array(50).fill(null).map(createRandomUser);
+export const users = [
+  ...new Array(50).fill(null).map(() => createRandomUser({})),
+  createRandomUser({
+    username: 'user1',
+    password: 'password1',
+  }),
+];
 export const tweets = new Array(200)
   .fill(null)
   .map(() => createRandomTweet(faker.random.arrayElement(users).id));

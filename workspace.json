@@ -3,6 +3,8 @@
   "projects": {
     "api": "apps/api",
     "native-screens": "libs/native-screens",
+    "shared-api-client": "libs/shared/api-client",
+    "shared-schemas": "libs/shared/schemas",
     "shared-test-data": "libs/shared/test-data",
     "shared-types": "libs/shared/types",
     "shared-ui": "libs/shared/ui",
