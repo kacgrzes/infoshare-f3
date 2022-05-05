@@ -63,6 +63,8 @@
     "jest": "27.5.1",
     "jest-circus": "27.5.1",
     "jest-react-native": "^17.0.2",
+    "jest-runner": "^28.0.3",
+    "jest-watch-typeahead": "^1.1.0",
     "metro": "0.70.1",
     "metro-babel-register": "0.70.1",
     "metro-react-native-babel-preset": "0.70.1",

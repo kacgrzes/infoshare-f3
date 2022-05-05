@@ -12,4 +12,8 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/apps/api',
+  watchPlugins: [
+    'jest-watch-typeahead/filename',
+    'jest-watch-typeahead/testname',
+  ],
 };
