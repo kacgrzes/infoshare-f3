@@ -4,7 +4,17 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url      = "file:./test.db"
+}
+
+model Like {
+  id      Int   @id @default(autoincrement())
+  userId  Int
+  tweetId Int
+  tweet   Tweet @relation(fields: [tweetId], references: [id])
+  user    User  @relation(fields: [userId], references: [id])
+
+  @@unique(fields: [userId, tweetId], name: "likeId")
 }
 
 model User {
@@ -12,6 +22,7 @@ model User {
   username String    @unique
   password String
   comments Comment[]
+  likes    Like[]
   tweets   Tweet[]
 }
 
@@ -22,6 +33,7 @@ model Tweet {
   userId    Int
   user      User      @relation(fields: [userId], references: [id])
   comments  Comment[]
+  likedBy   Like[]
 }
 
 model Comment {

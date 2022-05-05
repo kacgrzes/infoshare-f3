@@ -1,9 +1,7 @@
 import { prisma } from '../prisma';
 import { signUp, getAllUsers, cleanup } from '../test.utils';
 
-beforeEach(async () => {
-  await cleanup();
-});
+afterEach(cleanup);
 
 describe('Users', () => {
   it('returns 200 OK when sign up request is valid', async () => {

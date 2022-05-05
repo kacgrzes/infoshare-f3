@@ -8,6 +8,13 @@ export const tweetsController = {
     const tweets = await prisma.tweet.findMany({
       take: 10,
       skip: (parsedPage - 1) * 10,
+      include: {
+        likedBy: {
+          select: {
+            id: true,
+          },
+        },
+      },
     });
     return res.status(200).json({
       tweets,
@@ -21,6 +28,63 @@ export const tweetsController = {
         userId: req.user.id,
       },
     });
-    res.status(200).json(newTweet);
+    return res.status(200).json(newTweet);
+  },
+  like: async (req: Request, res: Response) => {
+    const tweetId = parseInt(req.params.tweetId);
+    const userId = req.user.id;
+
+    await prisma.like.upsert({
+      create: {
+        userId,
+        tweetId,
+      },
+      update: {
+        tweetId,
+        userId,
+      },
+      where: {
+        likeId: {
+          tweetId,
+          userId,
+        },
+      },
+    });
+    const tweet = await prisma.tweet.findUnique({
+      where: {
+        id: tweetId,
+      },
+      include: {
+        likedBy: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    return res.status(200).json({
+      tweet,
+    });
+  },
+  unlike: async (req: Request, res: Response) => {
+    const tweetId = parseInt(req.params.tweetId);
+    const userId = req.user.id;
+
+    try {
+      await prisma.like.delete({
+        where: {
+          likeId: {
+            tweetId,
+            userId,
+          },
+        },
+      });
+    } catch (err) {
+      // console.log(JSON.stringify(err.meta.cause));
+    }
+
+    return res.status(200).json({
+      message: 'Tweet unliked',
+    });
   },
 };

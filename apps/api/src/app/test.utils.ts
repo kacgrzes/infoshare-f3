@@ -5,6 +5,53 @@ import { prisma } from './prisma';
 
 const agent = supertest(app);
 
+export const cleanup = async () => {
+  await prisma.$transaction([
+    prisma.like.deleteMany(),
+    prisma.comment.deleteMany(),
+    prisma.tweet.deleteMany(),
+    prisma.user.deleteMany(),
+  ]);
+};
+
+export const createUser = async () => {
+  const hashedPassword = await bcrypt.hash('password1', 10);
+  return await prisma.user.create({
+    data: {
+      username: 'user1',
+      password: hashedPassword,
+    },
+  });
+};
+
+export const createTweet = (userId, text) => {
+  return prisma.tweet.create({
+    data: {
+      text,
+      userId,
+    },
+  });
+};
+
+export const createTweets = async (tweetsNumber = 20) => {
+  const user = await createUser();
+  return await prisma.$transaction(
+    new Array(tweetsNumber)
+      .fill(null)
+      .map((_, index) => createTweet(user.id, `Tweet ${index}`))
+  );
+};
+
+export const createComment = async ({ authorId, tweetId, text }) => {
+  return prisma.comment.create({
+    data: {
+      text,
+      authorId,
+      tweetId,
+    },
+  });
+};
+
 export const signUp = async (username = 'user1', password = 'password1') => {
   return await agent.post('/api/1.0/users').send({
     username,
@@ -35,38 +82,6 @@ export const getTweets = async (
   return await tweetsRequest;
 };
 
-export const cleanup = async () => {
-  await prisma.$transaction([
-    prisma.tweet.deleteMany(),
-    prisma.comment.deleteMany(),
-    prisma.user.deleteMany(),
-  ]);
-};
-
-export const createUser = async () => {
-  const hashedPassword = await bcrypt.hash('password1', 10);
-  return await prisma.user.create({
-    data: {
-      username: 'user1',
-      password: hashedPassword,
-    },
-  });
-};
-
-export const createTweets = async (tweetsNumber = 20) => {
-  const user = await createUser();
-  return await prisma.$transaction(
-    new Array(tweetsNumber).fill(null).map((_, index) => {
-      return prisma.tweet.create({
-        data: {
-          text: `Tweet ${index}`,
-          userId: user.id,
-        },
-      });
-    })
-  );
-};
-
 export const postTweet = async (token?: string) => {
   const createTweetRequest = agent.post('/api/1.0/tweets').send({
     text: 'Example tweet',
@@ -75,4 +90,42 @@ export const postTweet = async (token?: string) => {
     createTweetRequest.set('Authorization', `Bearer ${token}`);
   }
   return await createTweetRequest;
+};
+
+export const getComments = async (tweetId: number, token?: string) => {
+  const getCommentsRequest = agent.get(`/api/1.0/tweets/${tweetId}/comments`);
+  if (token) {
+    getCommentsRequest.set('Authorization', `Bearer ${token}`);
+  }
+  return await getCommentsRequest;
+};
+
+export const postComment = async ({ tweetId, text }, token?: string) => {
+  const postCommentRequest = agent
+    .post(`/api/1.0/tweets/${tweetId}/comments`)
+    .send({
+      text,
+    });
+  if (token) {
+    postCommentRequest.set('Authorization', `Bearer ${token}`);
+  }
+  return await postCommentRequest;
+};
+
+export const postLikeTweet = async (tweetId: number, token?: string) => {
+  const postLikeTweetRequest = agent.post(`/api/1.0/tweets/${tweetId}/likes`);
+  if (token) {
+    postLikeTweetRequest.set('Authorization', `Bearer ${token}`);
+  }
+  return await postLikeTweetRequest;
+};
+
+export const deleteLikeTweet = async (tweetId: number, token?: string) => {
+  const deleteLikeTweetRequest = agent.delete(
+    `/api/1.0/tweets/${tweetId}/likes`
+  );
+  if (token) {
+    deleteLikeTweetRequest.set('Authorization', `Bearer ${token}`);
+  }
+  return await deleteLikeTweetRequest;
 };

@@ -1,8 +1,6 @@
 import { signUp, login, cleanup } from '../test.utils';
 
-beforeEach(async () => {
-  await cleanup();
-});
+afterEach(cleanup);
 
 describe('Auth', () => {
   it('returns 404 when no user is found', async () => {
