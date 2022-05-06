@@ -98,6 +98,17 @@ export const postTweet = async ({ text }: { text: string }, token?: string) => {
   return await createTweetRequest;
 };
 
+export const deleteTweet = async (
+  { tweetId }: { tweetId: string },
+  token?: string
+) => {
+  const deleteTweetRequest = agent.delete(`/api/1.0/tweets/${tweetId}`);
+  if (token) {
+    deleteTweetRequest.set('Authorization', `Bearer ${token}`);
+  }
+  return await deleteTweetRequest;
+};
+
 export const getComments = async (tweetId: number, token?: string) => {
   const getCommentsRequest = agent.get(`/api/1.0/tweets/${tweetId}/comments`);
   if (token) {

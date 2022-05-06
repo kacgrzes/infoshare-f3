@@ -5,7 +5,6 @@ import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
 } from '@react-navigation/native-stack';
-import { me } from '@infoshare-f3/shared-test-data';
 import { Avatar, Button } from '@infoshare-f3/shared-ui';
 import {
   CommentTweetScreen,
@@ -14,15 +13,28 @@ import {
   TweetsScreen,
   UserProfileScreen,
 } from '@infoshare-f3/native-screens';
-import { useAuthContext } from '@infoshare-f3/data-providers';
+import { useAuthContext, useTweetsContext } from '@infoshare-f3/data-providers';
 import { useTailwind } from 'tailwind-rn';
 
 const Stack = createNativeStackNavigator();
 
+const HeaderLeft = () => {
+  const { me } = useAuthContext();
+
+  return <Avatar size="small" profileImageUrl={me.profileImageUrl} />;
+};
+
+const DeleteTweeterHeaderButton = () => {
+  const { params } = useRoute();
+  const {} = useTweetsContext()
+
+  return <Button title={'Tweet'} size="small" onPress={() => {
+
+  }} />;
+}
+
 const options: NativeStackNavigationOptions = {
-  headerLeft: () => (
-    <Avatar size="small" profileImageUrl={me.profileImageUrl} />
-  ),
+  headerLeft: HeaderLeft,
 };
 
 const CreateTweeterHeaderButton = () => {

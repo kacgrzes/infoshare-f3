@@ -49,6 +49,32 @@ export const tweetsController = {
       }),
     });
   },
+  delete: async (req: Request, res: Response) => {
+    const { tweetId } = req.params;
+    const { user } = req;
+    const tweet = await prisma.tweet.findUnique({
+      where: {
+        id: tweetId,
+      },
+      select: {
+        authorId: true,
+      },
+    });
+    console.log(tweet);
+    if (tweet.authorId !== user.id) {
+      return res.status(401).json({
+        message: 'You are not the author of this tweet',
+      });
+    }
+    await prisma.tweet.delete({
+      where: {
+        id: tweetId,
+      },
+    });
+    return res.status(200).json({
+      message: 'Tweet deleted',
+    });
+  },
   create: async (req: Request, res: Response) => {
     const { text } = req.body;
     const newTweet = await prisma.tweet.create({

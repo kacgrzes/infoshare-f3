@@ -13,6 +13,7 @@ router.post(
   validate(createTweetSchemaExpress),
   tweetsController.create
 );
+router.delete('/tweets/:tweetId', authenticateToken, tweetsController.delete);
 router.use('/tweets/:tweetId/comments', authenticateToken, commentsRouter);
 router.post('/tweets/:tweetId/likes', authenticateToken, tweetsController.like);
 router.delete(
