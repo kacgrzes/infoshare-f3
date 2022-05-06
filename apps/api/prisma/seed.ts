@@ -17,6 +17,8 @@ const main = async () => {
           id: user.id,
           username: user.username,
           password: bcrypt.hashSync(user.password, 10),
+          name: user.name,
+          profileImageUrl: user.profileImageUrl,
         },
       });
     })
@@ -28,7 +30,7 @@ const main = async () => {
           id: tweet.id,
           text: tweet.text,
           createdAt: tweet.createdAt,
-          userId: tweet.authorId,
+          authorId: tweet.authorId,
         },
       });
     })
@@ -44,6 +46,20 @@ const main = async () => {
         },
       });
     })
+  );
+  await prisma.$transaction(
+    users
+      .map((user) => {
+        return user.likedTweetsIds.map((tweetId) => {
+          return prisma.like.create({
+            data: {
+              tweetId,
+              userId: user.id,
+            },
+          });
+        });
+      })
+      .flat()
   );
 };
 

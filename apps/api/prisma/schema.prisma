@@ -18,20 +18,23 @@ model Like {
 }
 
 model User {
-  id       String    @id @default(cuid())
-  username String    @unique
-  password String
-  comments Comment[]
-  likes    Like[]
-  tweets   Tweet[]
+  id              String    @id @default(cuid())
+  createdAt       DateTime  @default(now())
+  name            String
+  username        String    @unique
+  password        String
+  comments        Comment[]
+  likes           Like[]
+  tweets          Tweet[]
+  profileImageUrl String?
 }
 
 model Tweet {
   id        String    @id @default(cuid())
   createdAt DateTime  @default(now())
   text      String
-  userId    String
-  user      User      @relation(fields: [userId], references: [id])
+  authorId  String
+  author    User      @relation(fields: [authorId], references: [id])
   comments  Comment[]
   likedBy   Like[]
 }
