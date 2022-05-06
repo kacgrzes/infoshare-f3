@@ -1,7 +1,5 @@
 const { merge } = require('webpack-merge');
 
-console.log('ejejeje');
-
 module.exports = (config, context) => {
   return merge(config, {
     // overwrite values here

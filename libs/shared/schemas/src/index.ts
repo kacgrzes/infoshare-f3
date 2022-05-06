@@ -1,18 +1,23 @@
 import { object, string } from 'yup';
 
 export const createUserSchema = object({
-  body: object({
-    username: string().required('username is a required field'),
-    password: string()
-      .required('password is a required field')
-      .min(8, 'password must be at least 8 characters'),
-  }),
-});
+  username: string().required('username is a required field'),
+  name: string().required('name is a required field'),
+  password: string()
+    .required('password is a required field')
+    .min(8, 'password must be at least 8 characters'),
+}).required();
+
+export const createUserSchemaExpress = object({
+  body: createUserSchema,
+}).required();
 
 export const createTweetSchema = object({
-  body: object({
-    text: string()
-      .required('tweet is a required field')
-      .max(160, 'tweet must be at most 160 characters'),
-  }),
-});
+  text: string()
+    .required('tweet is a required field')
+    .max(160, 'tweet must be at most 160 characters'),
+}).required();
+
+export const createTweetSchemaExpress = object({
+  body: createTweetSchema,
+}).required();

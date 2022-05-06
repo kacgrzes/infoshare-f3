@@ -7,6 +7,7 @@ export const usersController = {
       const newUser = await usersService.createUser({
         username: req.body.username,
         password: req.body.password,
+        name: req.body.name,
       });
       return res.status(200).json({
         message: 'User was signed up successfully',

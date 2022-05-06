@@ -1,20 +1,20 @@
 import React, { useCallback } from 'react';
-import { StatusBar, FlatList, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { StatusBar, FlatList, View, ActivityIndicator } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Tweet, TweetButton, Separator } from '@infoshare-f3/shared-ui';
-import { users, tweets, me } from '@infoshare-f3/shared-test-data'
+import { useTweetsContext } from '@infoshare-f3/data-providers';
 import { useTailwind } from 'tailwind-rn';
-import { useTweeterCallbacks } from './useTweeterCallbacks'
+import { useTweeterCallbacks } from './useTweeterCallbacks';
 
 export const TweetsScreen = () => {
+  const { tweetsQuery, toggleTweetLike } = useTweetsContext();
   const tailwind = useTailwind();
   const { goToCreateComment, goToTweet, goToUserProfile, goToCreateTweet } =
     useTweeterCallbacks();
   const { bottom } = useSafeAreaInsets();
   const renderItem = useCallback(
     ({ item }) => {
-      const author = users.find((user) => user.id === item.authorId);
-
+      const author = item.author;
       return (
         <Tweet
           author={author}
@@ -22,7 +22,7 @@ export const TweetsScreen = () => {
           onCommentPress={() => goToCreateComment(item.id)}
           onTweetPress={() => goToTweet(item.id)}
           onAvatarPress={() => goToUserProfile(author.id)}
-          liked={me.likedTweetsIds.includes(item.id)}
+          onLikePress={() => toggleTweetLike(item.id)}
         />
       );
     },
@@ -34,11 +34,23 @@ export const TweetsScreen = () => {
     <>
       <StatusBar barStyle="dark-content" animated />
       <FlatList
-        data={tweets}
+        data={
+          tweetsQuery?.data?.pages?.map((page) => page.data.tweets)?.flat() ??
+          []
+        }
         ItemSeparatorComponent={Separator}
         contentContainerStyle={{ paddingBottom: bottom }}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
+        onEndReached={tweetsQuery?.fetchNextPage}
+        onEndReachedThreshold={0.2}
+        ListFooterComponent={
+          tweetsQuery?.isFetchingNextPage && tweetsQuery?.hasNextPage ? (
+            <View style={tailwind('items-center justify-center h-12')}>
+              <ActivityIndicator />
+            </View>
+          ) : null
+        }
       />
       <View style={[tailwind('absolute right-4'), { bottom }]}>
         <TweetButton onPress={goToCreateTweet} />

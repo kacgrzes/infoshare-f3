@@ -20,15 +20,16 @@ export const createUser = async () => {
     data: {
       username: 'user1',
       password: hashedPassword,
+      name: 'John Doe',
     },
   });
 };
 
-export const createTweet = (userId, text) => {
+export const createTweet = (authorId, text) => {
   return prisma.tweet.create({
     data: {
       text,
-      userId,
+      authorId,
     },
   });
 };
@@ -52,10 +53,15 @@ export const createComment = async ({ authorId, tweetId, text }) => {
   });
 };
 
-export const signUp = async (username = 'user1', password = 'password1') => {
+export const signUp = async (
+  username = 'user1',
+  password = 'password1',
+  name = 'John Doe'
+) => {
   return await agent.post('/api/1.0/users').send({
     username,
     password,
+    name,
   });
 };
 

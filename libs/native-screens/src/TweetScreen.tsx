@@ -1,41 +1,48 @@
 import React, { useCallback } from 'react';
-import { StatusBar, FlatList } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useRoute } from '@react-navigation/native'
-import { tweets, comments, users } from '@infoshare-f3/shared-test-data'
-import { Tweet, CommentCard } from '@infoshare-f3/shared-ui'
+import { StatusBar, FlatList } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useRoute } from '@react-navigation/native';
+import { Tweet, CommentCard } from '@infoshare-f3/shared-ui';
+import {
+  useCommentForTweetQuery,
+  useTweetsContext,
+} from '@infoshare-f3/data-providers';
 
 export const TweetScreen = () => {
   const { bottom } = useSafeAreaInsets();
   const { params } = useRoute();
+  const { getTweet, toggleTweetLike } = useTweetsContext();
   const { id: tweetId } = params;
-  const tweet = tweets.find((tweet) => tweet.id === tweetId);
-  const author = users.find((user) => user.id === tweet.authorId);
-  const tweetComments = comments.filter(
-    (comment) => comment.tweetId === tweet.id
-  );
+  const tweet = getTweet(tweetId);
+  const commentsQuery = useCommentForTweetQuery(tweetId);
+  const comments = commentsQuery?.data?.data?.comments ?? [];
 
   const renderItem = useCallback(
-    ({ item, index }) => {
-      const commentAuthor = users.find((user) => user.id === item.authorId);
+    ({ item: comment, index }) => {
       return (
         <CommentCard
-          author={commentAuthor}
-          comment={item}
+          author={comment.author}
+          comment={comment}
           isFirst={index === 0}
-          isLast={index === tweetComments.length - 1}
+          isLast={index === comments.length - 1}
         />
       );
     },
-    [tweetComments]
+    [comments]
   );
 
   return (
     <>
       <StatusBar barStyle="dark-content" animated />
       <FlatList
-        data={tweetComments}
-        ListHeaderComponent={<Tweet tweet={tweet} author={author} />}
+        data={comments}
+        ListHeaderComponent={
+          <Tweet
+            tweet={tweet}
+            author={tweet.author}
+            onLikePress={() => toggleTweetLike(tweet.id)}
+          />
+        }
         stickyHeaderIndices={[0]}
         renderItem={renderItem}
         contentContainerStyle={{ paddingBottom: bottom }}

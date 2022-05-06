@@ -48,6 +48,9 @@ describe('Tweets', () => {
       const tweetsFromDb = await prisma.tweet.findMany({
         take: 10,
         skip: 10,
+        orderBy: {
+          createdAt: 'desc',
+        },
       });
       expect(response.body.tweets[0]).toMatchObject(
         JSON.parse(JSON.stringify(tweetsFromDb[0]))
@@ -69,8 +72,8 @@ describe('Tweets', () => {
       const user = await prisma.user.findFirst();
 
       expect(response.statusCode).toBe(200);
-      expect(keys).toEqual(new Set(['id', 'userId', 'createdAt', 'text']));
-      expect(response.body.userId).toBe(user.id);
+      expect(keys).toEqual(new Set(['id', 'authorId', 'createdAt', 'text']));
+      expect(response.body.authorId).toBe(user.id);
     });
     test('Cannot create tweet with empty text', async () => {
       await signUp();

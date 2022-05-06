@@ -1,0 +1,23 @@
+{
+  "root": "libs/shared/data-providers",
+  "sourceRoot": "libs/shared/data-providers/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/shared/data-providers/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/shared/data-providers"],
+      "options": {
+        "jestConfig": "libs/shared/data-providers/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

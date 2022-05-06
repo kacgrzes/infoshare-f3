@@ -24,8 +24,10 @@ export const client = {
     },
   },
   tweets: {
-    getAll: async () => {
-      const response = await instance.get('/api/1.0/tweets');
+    getAll: async ({ page = 1 }: { page: number }) => {
+      const response = await instance.get('/api/1.0/tweets', {
+        params: { page },
+      });
       return response;
     },
     create: async ({ text }: { text: string }) => {

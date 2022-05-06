@@ -20,6 +20,11 @@ export type Tweet = {
   authorId: string;
   replyCount: number;
   likedCount: number;
+  liked: boolean;
+};
+
+export type CreateTweet = {
+  text: string;
 };
 
 export type Comment = {
@@ -28,4 +33,8 @@ export type Comment = {
   createdAt: Date;
   text: string;
   authorId: string;
+};
+
+export type CreateComment = {
+  text: string;
 };

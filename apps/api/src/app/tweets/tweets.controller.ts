@@ -12,12 +12,41 @@ export const tweetsController = {
         likedBy: {
           select: {
             id: true,
+            userId: true,
+          },
+        },
+        author: {
+          select: {
+            id: true,
+            username: true,
+            profileImageUrl: true,
+          },
+        },
+        comments: {
+          select: {
+            id: true,
           },
         },
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
     return res.status(200).json({
-      tweets,
+      tweets: tweets.map((tweet) => {
+        const { author, id, createdAt, text } = tweet;
+        return {
+          author,
+          id,
+          createdAt,
+          text,
+          liked: Boolean(
+            tweet.likedBy.find((liked) => liked.userId === req.user.id)
+          ),
+          likedCount: tweet.likedBy.length,
+          replyCount: tweet.comments.length,
+        };
+      }),
     });
   },
   create: async (req: Request, res: Response) => {
@@ -25,7 +54,7 @@ export const tweetsController = {
     const newTweet = await prisma.tweet.create({
       data: {
         text,
-        userId: req.user.id,
+        authorId: req.user.id,
       },
     });
     return res.status(200).json(newTweet);

@@ -1,5 +1,5 @@
 export type ButtonProps = {
-  size: "small" | "normal"
+  size?: 'small' | 'normal';
   title: string;
   onPress?: () => void;
   disabled?: boolean;

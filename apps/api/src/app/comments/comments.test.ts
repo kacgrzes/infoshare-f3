@@ -72,7 +72,9 @@ describe('Comments', () => {
       const author = comment.author;
       const authorKeys = new Set(Object.keys(author));
 
-      expect(authorKeys).toEqual(new Set(['id', 'username']));
+      expect(authorKeys).toEqual(
+        new Set(['id', 'username', 'name', 'profileImageUrl'])
+      );
     });
   });
 

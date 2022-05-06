@@ -1,5 +1,6 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { View } from 'react-native';
+import { NavigationContainer, useRoute } from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
@@ -13,6 +14,8 @@ import {
   TweetsScreen,
   UserProfileScreen,
 } from '@infoshare-f3/native-screens';
+import { useAuthContext } from '@infoshare-f3/data-providers';
+import { useTailwind } from 'tailwind-rn';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +25,38 @@ const options: NativeStackNavigationOptions = {
   ),
 };
 
+const CreateTweeterHeaderButton = () => {
+  const { params } = useRoute();
+
+  return <Button title={'Tweet'} size="small" {...params} />;
+};
+
+const SignInScreen = () => {
+  const tailwind = useTailwind();
+  const { loginMutation } = useAuthContext();
+
+  return (
+    <View style={tailwind('flex-1 items-center justify-center')}>
+      <Button
+        onPress={() =>
+          loginMutation.mutate({
+            username: 'user1',
+            password: 'password1',
+          })
+        }
+        title={
+          (loginMutation.status === 'idle' && 'Sign in') ||
+          (loginMutation.status === 'loading' && 'Loading...') ||
+          (loginMutation.status === 'success' && 'Logged in!')
+        }
+      ></Button>
+    </View>
+  );
+};
+
 export const App = () => {
+  const { isAuthenticated } = useAuthContext();
+
   return (
     <NavigationContainer
       theme={{
@@ -43,6 +77,11 @@ export const App = () => {
           orientation: 'portrait',
         }}
       >
+        {!isAuthenticated && (
+          <Stack.Group>
+            <Stack.Screen name="SignIn" component={SignInScreen} />
+          </Stack.Group>
+        )}
         <Stack.Screen
           name="Main"
           component={TweetsScreen}
@@ -71,13 +110,8 @@ export const App = () => {
             name="CreateTweet"
             component={CreateTweetScreen}
             options={(props) => {
-              const disabled = props.route.params?.disabled ?? true;
               return {
-                headerRight: () => {
-                  return (
-                    <Button disabled={disabled} title={'Tweet'} size="small" />
-                  );
-                },
+                headerRight: CreateTweeterHeaderButton,
                 title: '',
               };
             }}

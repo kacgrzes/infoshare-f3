@@ -12,8 +12,13 @@ router.get('/', async (req: Request, res: Response) => {
         select: {
           id: true,
           username: true,
+          profileImageUrl: true,
+          name: true,
         },
       },
+    },
+    where: {
+      tweetId: req.params.tweetId,
     },
   });
   res.status(200).json({

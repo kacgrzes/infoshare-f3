@@ -57,10 +57,10 @@ export const users = [
     password: 'password1',
   }),
 ];
-export const tweets = new Array(200)
+export const tweets = new Array(50)
   .fill(null)
   .map(() => createRandomTweet(faker.random.arrayElement(users).id));
-export const comments = new Array(1000).fill(null).map(() =>
+export const comments = new Array(500).fill(null).map(() =>
   createRandomComment({
     authorId: faker.random.arrayElement(users).id,
     tweetId: faker.random.arrayElement(tweets).id,

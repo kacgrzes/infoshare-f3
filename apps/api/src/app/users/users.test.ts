@@ -55,20 +55,29 @@ describe('Users', () => {
       {
         username: '',
         password: 'password1',
+        name: 'John Doe',
         message: 'username is a required field',
       },
       {
         username: 'user2',
         password: '',
+        name: 'John Doe',
         message: 'password is a required field',
       },
       {
         username: 'user2',
         password: 'pass',
+        name: 'John Doe',
         message: 'password must be at least 8 characters',
       },
-    ])('test case: $message', async ({ username, password, message }) => {
-      const response = await signUp(username, password);
+      {
+        username: 'user1',
+        password: 'password1',
+        name: '',
+        message: 'name is a required field',
+      },
+    ])('test case: $message', async ({ username, password, name, message }) => {
+      const response = await signUp(username, password, name);
       expect(response.statusCode).toBe(400);
       expect(response.body.errors).toHaveLength(1);
       expect(response.body.errors[0]).toBe(message);
