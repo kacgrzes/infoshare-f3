@@ -40,8 +40,7 @@ describe('Tweets', () => {
       expect(response.body.tweets).toHaveLength(10);
     });
 
-    // TODO: work on this test plox
-    test.skip('returns second page of tweets', async () => {
+    test('returns second page of tweets', async () => {
       await createTweets(30);
       const loginResponse = await login();
       const response = await getTweets(loginResponse.body.token, {
@@ -54,8 +53,8 @@ describe('Tweets', () => {
           createdAt: 'desc',
         },
       });
-      expect(response.body.tweets[0]).toMatchObject(
-        JSON.parse(JSON.stringify(tweetsFromDb[0]))
+      expect(response.body.tweets[0].id).toBe(
+        JSON.parse(JSON.stringify(tweetsFromDb[0].id))
       );
     });
   });
@@ -85,7 +84,7 @@ describe('Tweets', () => {
 
       expect(response.statusCode).toBe(400);
       expect(response.body.errors).toHaveLength(1);
-      expect(response.body.errors[0]).toBe('tweet is a required field');
+      expect(response.body.errors[0]).toBe('text is a required field');
     });
 
     test('Cannot create tweet longer than 160 characters', async () => {
@@ -100,34 +99,45 @@ describe('Tweets', () => {
       expect(response.statusCode).toBe(400);
       expect(response.body.errors).toHaveLength(1);
       expect(response.body.errors[0]).toBe(
-        'tweet must be at most 160 characters'
+        'text must be at most 160 characters'
       );
     });
   });
 
-  describe.only('delete tweet', () => {
-    it('returns 401 when trying to delete tweet without token', async () => {
+  describe('delete tweet', () => {
+    let token, tweet;
+    beforeEach(async () => {
       await signUp();
       const loginResponse = await login();
-      const token = loginResponse.body.token;
-      const tweetResponse = await postTweet({ text: '' }, token);
-      const response = await deleteTweet({ tweetId: tweetResponse.body.id });
+      token = loginResponse.body.token;
+      const tweetResponse = await postTweet({ text: 'Example tweet' }, token);
+      tweet = tweetResponse.body;
+    });
+
+    it('returns 401 when trying to delete tweet without token', async () => {
+      const response = await deleteTweet({ tweetId: tweet.id });
 
       expect(response.status).toBe(401);
     });
 
     it('returns 200 when trying to delete tweet with token', async () => {
-      await signUp();
-      const loginResponse = await login();
-      const token = loginResponse.body.token;
-      const tweetResponse = await postTweet({ text: '' }, token);
-      console.log(tweetResponse);
-      const response = await deleteTweet(
-        { tweetId: tweetResponse.body.id },
-        token
-      );
+      const response = await deleteTweet({ tweetId: tweet.id }, token);
 
       expect(response.status).toBe(200);
+    });
+
+    it('returns 401 when trying to delete not my tweet', async () => {
+      await signUp('username2', 'password2');
+      const loginResponse = await login('username2', 'password2');
+      const response = await deleteTweet(
+        { tweetId: tweet.id },
+        loginResponse.body.token
+      );
+
+      expect(response.status).toBe(401);
+      expect(response.body.message).toBe(
+        'You are not the author of this tweet'
+      );
     });
   });
 

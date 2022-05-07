@@ -14,8 +14,8 @@ export const createUserSchemaExpress = object({
 
 export const createTweetSchema = object({
   text: string()
-    .required('tweet is a required field')
-    .max(160, 'tweet must be at most 160 characters'),
+    .required('text is a required field')
+    .max(160, 'text must be at most 160 characters'),
 }).required();
 
 export const createTweetSchemaExpress = object({

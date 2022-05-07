@@ -60,7 +60,6 @@ export const tweetsController = {
         authorId: true,
       },
     });
-    console.log(tweet);
     if (tweet.authorId !== user.id) {
       return res.status(401).json({
         message: 'You are not the author of this tweet',
