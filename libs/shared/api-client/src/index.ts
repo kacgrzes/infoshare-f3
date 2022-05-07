@@ -34,6 +34,10 @@ export const client = {
       const response = await instance.post('/api/1.0/tweets', { text });
       return response;
     },
+    delete: async ({ tweetId }: { tweetId: string }) => {
+      const response = await instance.delete(`/api/1.0/tweets/${tweetId}`);
+      return response
+    },
     like: async ({ tweetId }: { tweetId: string }) => {
       const response = await instance.post(`/api/1.0/tweets/${tweetId}/likes`);
       return response;

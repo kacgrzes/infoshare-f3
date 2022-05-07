@@ -28,9 +28,10 @@ const createRandomTweet = (authorId: string): Tweet => {
     id: generateRandomId(),
     createdAt: faker.date.recent(),
     likedCount: 0,
-    replyCount: 15,
+    replyCount: 0,
     text: faker.lorem.words(30).slice(0, 160),
     authorId,
+    liked: false
   };
 };
 
@@ -51,10 +52,14 @@ const createRandomComment = ({
 };
 
 export const users = [
-  ...new Array(50).fill(null).map(() => createRandomUser({})),
+  ...new Array(48).fill(null).map(() => createRandomUser({})),
   createRandomUser({
     username: 'user1',
     password: 'password1',
+  }),
+  createRandomUser({
+    username: 'user2',
+    password: 'password2',
   }),
 ];
 export const tweets = new Array(50)

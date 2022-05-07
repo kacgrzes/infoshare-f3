@@ -76,7 +76,9 @@ const AuthProvider: FC = ({ children }) => {
 type TweetsContextType = {
   tweetsQuery?: UseInfiniteQueryResult;
   createTweetMutation: UseMutationResult;
-  getTweet?: () => void;
+  deleteTweetMutation: UseMutationResult;
+  getTweet?: (tweetId: string) => void;
+  checkIfCanDelete?: (tweetId: string) => void;
   likeTweetMutation?: UseMutationResult;
   unlikeTweetMutation?: UseMutationResult;
   toggleTweetLike: (tweetId: string) => void;
@@ -93,10 +95,18 @@ export const useTweetsContext = () => {
 };
 
 const TweetsProvider: FC = ({ children }) => {
+  const { me } = useAuthContext()
   const queryClient = useQueryClient();
 
   // mutations
   const createTweetMutation = useMutation(client.tweets.create, {
+    onSuccess: (response) => {
+      if (response.status === 200) {
+        queryClient.invalidateQueries('tweets');
+      }
+    },
+  });
+  const deleteTweetMutation = useMutation(client.tweets.delete, {
     onSuccess: (response) => {
       if (response.status === 200) {
         queryClient.invalidateQueries('tweets');
@@ -145,6 +155,11 @@ const TweetsProvider: FC = ({ children }) => {
     return tweet;
   };
 
+  const checkIfCanDelete = (tweetId: string) => {
+    const tweet = getTweet(tweetId)
+    return tweet.author.id === me.id
+  }
+
   const toggleTweetLike = (tweetId: string) => {
     const tweet = getTweet(tweetId);
     const mutation = tweet.liked ? unlikeTweetMutation : likeTweetMutation;
@@ -154,9 +169,11 @@ const TweetsProvider: FC = ({ children }) => {
   const value = {
     tweetsQuery,
     createTweetMutation,
+    deleteTweetMutation,
     likeTweetMutation,
     unlikeTweetMutation,
     getTweet,
+    checkIfCanDelete,
     toggleTweetLike,
   };
 

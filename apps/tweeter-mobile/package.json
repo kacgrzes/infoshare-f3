@@ -19,6 +19,14 @@
     "react-native-screens": "*",
     "@faker-js/faker": "*",
     "react-native-vector-icons": "*",
-    "cuid": "*"
+    "cuid": "*",
+    "date-fns": "*",
+    "react-hook-form": "*",
+    "@hookform/resolvers": "*",
+    "yup": "*",
+    "react-query": "*",
+    "axios": "*",
+    "jwt-decode": "*",
+    "@testing-library/react-hooks": "*"
   }
 }

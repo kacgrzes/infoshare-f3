@@ -20,7 +20,7 @@ export type Tweet = {
   authorId: string;
   replyCount: number;
   likedCount: number;
-  liked: boolean;
+  liked?: boolean;
 };
 
 export type CreateTweet = {

@@ -1,6 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
-import { NavigationContainer, useRoute } from '@react-navigation/native';
+import {
+  NavigationContainer,
+  useRoute,
+  useNavigation,
+} from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
@@ -26,12 +30,31 @@ const HeaderLeft = () => {
 
 const DeleteTweeterHeaderButton = () => {
   const { params } = useRoute();
-  const {} = useTweetsContext()
+  const { goBack: onSuccess } = useNavigation();
+  const { deleteTweetMutation, checkIfCanDelete } = useTweetsContext();
+  const tweetId = params.id;
 
-  return <Button title={'Tweet'} size="small" onPress={() => {
+  if (!checkIfCanDelete(tweetId)) {
+    return null;
+  }
 
-  }} />;
-}
+  return (
+    <Button
+      title={'Usuń'}
+      size="small"
+      onPress={() => {
+        deleteTweetMutation.mutate(
+          {
+            tweetId,
+          },
+          {
+            onSuccess,
+          }
+        );
+      }}
+    />
+  );
+};
 
 const options: NativeStackNavigationOptions = {
   headerLeft: HeaderLeft,
@@ -102,7 +125,13 @@ export const App = () => {
             title: 'Tweety',
           }}
         />
-        <Stack.Screen name="Tweet" component={TweetScreen} />
+        <Stack.Screen
+          name="Tweet"
+          component={TweetScreen}
+          options={{
+            headerRight: DeleteTweeterHeaderButton,
+          }}
+        />
         <Stack.Screen
           options={{
             headerShadowVisible: false,
