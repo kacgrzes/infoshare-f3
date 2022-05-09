@@ -20,6 +20,9 @@ router.get('/', async (req: Request, res: Response) => {
     where: {
       tweetId: req.params.tweetId,
     },
+    orderBy: {
+      createdAt: 'desc'
+    }
   });
   res.status(200).json({
     comments,

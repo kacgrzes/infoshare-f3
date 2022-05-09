@@ -88,37 +88,43 @@ export const tweetsController = {
     const tweetId = req.params.tweetId;
     const userId = req.user.id;
 
-    await prisma.like.upsert({
-      create: {
-        userId,
-        tweetId,
-      },
-      update: {
-        tweetId,
-        userId,
-      },
-      where: {
-        likeId: {
+    try {
+      await prisma.like.upsert({
+        create: {
+          userId,
+          tweetId,
+        },
+        update: {
           tweetId,
           userId,
         },
-      },
-    });
-    const tweet = await prisma.tweet.findUnique({
-      where: {
-        id: tweetId,
-      },
-      include: {
-        likedBy: {
-          select: {
-            id: true,
+        where: {
+          likeId: {
+            tweetId,
+            userId,
           },
         },
-      },
-    });
-    return res.status(200).json({
-      tweet,
-    });
+      });
+      const tweet = await prisma.tweet.findUnique({
+        where: {
+          id: tweetId,
+        },
+        include: {
+          likedBy: {
+            select: {
+              id: true,
+            },
+          },
+        },
+      });
+      return res.status(200).json({
+        tweet,
+      });
+    } catch(error) {
+      return res.status(400).json({
+        message: "Something went wrong"
+      })
+    }
   },
   unlike: async (req: Request, res: Response) => {
     const tweetId = req.params.tweetId;
