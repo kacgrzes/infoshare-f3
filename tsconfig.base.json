@@ -19,13 +19,14 @@
       "@infoshare-f3/data-providers": [
         "libs/shared/data-providers/src/index.tsx"
       ],
+      "@infoshare-f3/forms": ["libs/shared/forms/src/index.ts"],
       "@infoshare-f3/helpers": ["libs/shared/helpers/src/index.ts"],
       "@infoshare-f3/native-screens": ["libs/native-screens/src/index.ts"],
       "@infoshare-f3/schemas": ["libs/shared/schemas/src/index.ts"],
       "@infoshare-f3/shared-test-data": ["libs/shared/test-data/src/index.ts"],
       "@infoshare-f3/shared-types": ["libs/shared/types/src/index.ts"],
       "@infoshare-f3/shared-ui": ["libs/shared/ui/src/index.ts"],
-      "@infoshare-f3/forms": ["libs/shared/forms/src/index.ts"]
+      "@infoshare-f3/web-pages": ["libs/web-pages/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

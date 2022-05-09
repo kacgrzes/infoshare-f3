@@ -16,6 +16,7 @@
     "tweeter-mobile": "apps/tweeter-mobile",
     "tweeter-mobile-e2e": "apps/tweeter-mobile-e2e",
     "tweeter-web": "apps/tweeter-web",
-    "tweeter-web-e2e": "apps/tweeter-web-e2e"
+    "tweeter-web-e2e": "apps/tweeter-web-e2e",
+    "web-pages": "libs/web-pages"
   }
 }

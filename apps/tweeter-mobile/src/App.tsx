@@ -1,5 +1,4 @@
 import React from 'react';
-import { View } from 'react-native';
 import {
   NavigationContainer,
   useRoute,
@@ -16,9 +15,9 @@ import {
   TweetScreen,
   TweetsScreen,
   UserProfileScreen,
+  SignInScreen,
 } from '@infoshare-f3/native-screens';
 import { useAuthContext, useTweetsContext } from '@infoshare-f3/data-providers';
-import { useTailwind } from 'tailwind-rn';
 
 const Stack = createNativeStackNavigator();
 
@@ -64,29 +63,6 @@ const CreateTweeterHeaderButton = () => {
   const { params } = useRoute();
 
   return <Button title={'Tweet'} size="small" {...params} />;
-};
-
-const SignInScreen = () => {
-  const tailwind = useTailwind();
-  const { loginMutation } = useAuthContext();
-
-  return (
-    <View style={tailwind('flex-1 items-center justify-center')}>
-      <Button
-        onPress={() =>
-          loginMutation.mutate({
-            username: 'user1',
-            password: 'password1',
-          })
-        }
-        title={
-          (loginMutation.status === 'idle' && 'Sign in') ||
-          (loginMutation.status === 'loading' && 'Loading...') ||
-          (loginMutation.status === 'success' && 'Logged in!')
-        }
-      ></Button>
-    </View>
-  );
 };
 
 export const App = () => {
