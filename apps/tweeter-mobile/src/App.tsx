@@ -23,9 +23,9 @@ import { useTailwind } from 'tailwind-rn';
 const Stack = createNativeStackNavigator();
 
 const HeaderLeft = () => {
-  const { me } = useAuthContext();
+  const { me, logout } = useAuthContext();
 
-  return <Avatar size="small" profileImageUrl={me.profileImageUrl} />;
+  return <Avatar size="small" profileImageUrl={me?.profileImageUrl} onPress={logout} />;
 };
 
 const DeleteTweeterHeaderButton = () => {
@@ -117,7 +117,8 @@ export const App = () => {
             <Stack.Screen name="SignIn" component={SignInScreen} />
           </Stack.Group>
         )}
-        <Stack.Screen
+        {isAuthenticated && <>
+          <Stack.Screen
           name="Main"
           component={TweetsScreen}
           options={{
@@ -167,7 +168,7 @@ export const App = () => {
               title: '',
             }}
           />
-        </Stack.Group>
+        </Stack.Group></>}
       </Stack.Navigator>
     </NavigationContainer>
   );

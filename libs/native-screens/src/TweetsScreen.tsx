@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { StatusBar, FlatList, View, ActivityIndicator } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Tweet, TweetButton, Separator } from '@infoshare-f3/shared-ui';
@@ -8,6 +8,7 @@ import { useTweeterCallbacks } from './useTweeterCallbacks';
 
 export const TweetsScreen = () => {
   const { tweetsQuery, toggleTweetLike } = useTweetsContext();
+  const [isRefetching, setRefetching] = useState(false)
   const tailwind = useTailwind();
   const { goToCreateComment, goToTweet, goToUserProfile, goToCreateTweet } =
     useTweeterCallbacks();
@@ -38,6 +39,13 @@ export const TweetsScreen = () => {
           tweetsQuery?.data?.pages?.map((page) => page.data.tweets)?.flat() ??
           []
         }
+        refreshing={isRefetching}
+        onRefresh={() => {
+          setRefetching(true)
+          tweetsQuery?.refetch().then(() => {
+            setRefetching(false)
+          })
+        }}
         ItemSeparatorComponent={Separator}
         contentContainerStyle={{ paddingBottom: bottom }}
         renderItem={renderItem}
