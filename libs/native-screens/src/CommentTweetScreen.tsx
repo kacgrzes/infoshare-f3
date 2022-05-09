@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import { useTailwind } from 'tailwind-rn';
-import { useCreateTweetForm } from '@infoshare-f3/forms';
+import { useCommentTweetForm } from '@infoshare-f3/forms';
 
 export const CommentTweetScreen = () => {
   const nativeId = 'tweet-input';
@@ -17,7 +17,7 @@ export const CommentTweetScreen = () => {
   const inputRef = useRef<TextInput>();
   const tailwind = useTailwind();
   const { setParams, goBack } = useNavigation();
-  const { control, onSubmit, formState } = useCreateTweetForm();
+  const { control, onSubmit, formState } = useCommentTweetForm();
 
   useEffect(() => {
     inputRef?.current?.focus();
@@ -49,7 +49,7 @@ export const CommentTweetScreen = () => {
                 style={tailwind('text-xl flex-grow p-4')}
                 ref={inputRef}
                 inputAccessoryViewID={nativeId}
-                placeholder={'Co się dzieje?'}
+                placeholder={'Skomentuj tweeta'}
                 placeholderTextColor={'#657786'}
                 onBlur={field.onBlur}
               >
