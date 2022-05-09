@@ -1,10 +1,25 @@
 import React from 'react';
-import { ButtonProps } from './Button.props'
+import clsx from 'clsx';
+import { ButtonProps } from './Button.props';
 
-export const Button = (props: ButtonProps) => {
+export const Button = ({
+  title,
+  size = 'normal',
+  onPress,
+  disabled,
+}: ButtonProps) => {
   return (
-    <button className="h-11 max-h-11 bg-blue text-white justify-center items-center rounded-full px-4">
-      Hello!
+    <button
+      disabled={disabled}
+      onClick={onPress}
+      className={clsx(
+        'bg-blue text-white justify-center items-center rounded-full px-4',
+        disabled && 'bg-gray',
+        size === 'small' && 'h-8 max-h-8',
+        size === 'normal' && 'h-11 max-h-11'
+      )}
+    >
+      {title}
     </button>
   );
 };
