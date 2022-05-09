@@ -22,6 +22,9 @@ export const client = {
       ] = `Bearer ${response.data.token}`;
       return response;
     },
+    logout: () => {
+      delete instance.defaults.headers.common['Authorization'];
+    },
   },
   tweets: {
     getAll: async ({ page = 1 }: { page: number }) => {
@@ -36,7 +39,7 @@ export const client = {
     },
     delete: async ({ tweetId }: { tweetId: string }) => {
       const response = await instance.delete(`/api/1.0/tweets/${tweetId}`);
-      return response
+      return response;
     },
     like: async ({ tweetId }: { tweetId: string }) => {
       const response = await instance.post(`/api/1.0/tweets/${tweetId}/likes`);
