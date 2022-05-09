@@ -15,6 +15,9 @@ const config = {
         sans: ['Graphik', 'sans-serif'],
         serif: ['Merriweather', 'serif'],
       },
+      width: {
+        '150': '600px'
+      }
     },
   },
 };

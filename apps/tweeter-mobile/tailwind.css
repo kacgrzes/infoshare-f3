@@ -26,6 +26,11 @@
   right: 1rem
 }
 
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem
+}
+
 .ml-4 {
   margin-left: 1rem
 }
@@ -40,6 +45,10 @@
 
 .mt-1 {
   margin-top: 0.25rem
+}
+
+.flex {
+  display: flex
 }
 
 .h-8 {
@@ -90,6 +99,10 @@
   width: 1.5rem
 }
 
+.max-w-2xl {
+  max-width: 42rem
+}
+
 .flex-1 {
   flex: 1 1 0%
 }
@@ -100,6 +113,10 @@
 
 .flex-grow {
   flex-grow: 1
+}
+
+.cursor-pointer {
+  cursor: pointer
 }
 
 .flex-row {
@@ -134,12 +151,25 @@
   border-width: 1px
 }
 
+.border-l {
+  border-left-width: 1px
+}
+
+.border-r {
+  border-right-width: 1px
+}
+
 .border-b {
   border-bottom-width: 1px
 }
 
 .border-t {
   border-top-width: 1px
+}
+
+.border-light-gray {
+  --tw-border-opacity: 1;
+  border-color: rgb(225 232 237 / var(--tw-border-opacity))
 }
 
 .border-b-light-gray {
@@ -165,6 +195,10 @@
 .bg-light-gray {
   --tw-bg-opacity: 1;
   background-color: rgb(225 232 237 / var(--tw-bg-opacity))
+}
+
+.bg-transparent {
+  background-color: transparent
 }
 
 .bg-white {
@@ -237,4 +271,10 @@
 
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)
+}
+
+@media (min-width: 768px) {
+  .md\:m-auto {
+    margin: auto
+  }
 }
