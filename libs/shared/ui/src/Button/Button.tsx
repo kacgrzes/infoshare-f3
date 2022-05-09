@@ -13,8 +13,8 @@ export const Button = ({
       disabled={disabled}
       onClick={onPress}
       className={clsx(
-        'bg-blue text-white justify-center items-center rounded-full px-4',
-        disabled && 'bg-gray',
+        disabled ? 'bg-gray' : 'bg-blue',
+        'text-white justify-center items-center rounded-full px-4',
         size === 'small' && 'h-8 max-h-8',
         size === 'normal' && 'h-11 max-h-11'
       )}
