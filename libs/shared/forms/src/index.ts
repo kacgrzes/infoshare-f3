@@ -1,8 +1,8 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { createTweetSchema } from '@infoshare-f3/schemas';
+import { createTweetSchema, commentTweetSchema } from '@infoshare-f3/schemas';
 import { CreateComment } from '@infoshare-f3/shared-types';
-import { useTweetsContext } from '@infoshare-f3/data-providers';
+import { useTweetsContext, useCommentTweetMutation } from '@infoshare-f3/data-providers';
 
 export const useCreateTweetForm = () => {
   const { createTweetMutation } = useTweetsContext();
@@ -15,13 +15,41 @@ export const useCreateTweetForm = () => {
   });
 
   const handleValid: SubmitHandler<CreateComment> = (data) => {
-    createTweetMutation.mutate(data);
+    createTweetMutation?.mutate(data);
   };
 
   const onSubmit = createTweetForm.handleSubmit(handleValid);
 
   return {
     ...createTweetForm,
+    onSubmit,
+  };
+};
+
+export const useCommentTweetForm = (tweetId?: string) => {
+  const commentTweetMutation = useCommentTweetMutation(tweetId);
+  const commentTweetForm = useForm<CreateComment>({
+    resolver: yupResolver(commentTweetSchema),
+    defaultValues: {
+      text: '',
+    },
+    mode: 'all',
+  });
+
+  const handleValid: SubmitHandler<CreateComment> = (data) => {
+    if (!tweetId) {
+      return
+    }
+    commentTweetMutation?.mutate({
+      ...data,
+      tweetId
+    });
+  };
+
+  const onSubmit = commentTweetForm.handleSubmit(handleValid);
+
+  return {
+    ...commentTweetForm,
     onSubmit,
   };
 };

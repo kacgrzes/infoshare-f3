@@ -1,4 +1,4 @@
-import React, { createContext, useContext, FC, useState } from 'react';
+import React, { createContext, useContext, FC, useState, useEffect } from 'react';
 import {
   QueryClientProvider,
   QueryClient,
@@ -12,6 +12,7 @@ import {
 import { client } from '@infoshare-f3/api-client';
 import { AxiosResponse } from 'axios';
 import jwtDecode from 'jwt-decode';
+import { Me } from '@infoshare-f3/shared-types'
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,13 +24,14 @@ export const queryClient = new QueryClient({
 
 // Auth
 type AuthContextType = {
-  me: any;
+  me: Me | null;
   isAuthenticated?: boolean;
   loginMutation?: UseMutationResult<
     AxiosResponse,
     unknown,
     { username: string; password: string }
   >;
+  logout?: () => void;
 };
 
 const AuthContext = createContext<AuthContextType>({
@@ -46,7 +48,7 @@ export const useAuthContext = () => {
 };
 
 const AuthProvider: FC = ({ children }) => {
-  const [me, setMe] = useState<any>(null);
+  const [me, setMe] = useState<Me | null>(null);
   const queryClient = useQueryClient();
   const loginMutation = useMutation(client.auth.login, {
     onSuccess: (response) => {
@@ -57,17 +59,26 @@ const AuthProvider: FC = ({ children }) => {
           },
         });
         queryClient.refetchQueries();
-        const user = jwtDecode(response.data.token);
+        const user = jwtDecode(response.data.token) as Me;
         setMe(user);
       }
     },
   });
-  const isAuthenticated = queryClient.defaultQueryOptions().enabled;
+  const logout = () => {
+    queryClient.setDefaultOptions({
+      queries: {
+        enabled: false
+      }
+    })
+    setMe(null)
+  }
+  const isAuthenticated = queryClient.defaultQueryOptions().enabled && me !== null;
+  console.log(isAuthenticated)
 
   return (
     <AuthContext.Provider
       children={children}
-      value={{ loginMutation, isAuthenticated, me }}
+      value={{ loginMutation, isAuthenticated, me, logout }}
     />
   );
 };
@@ -75,16 +86,18 @@ const AuthProvider: FC = ({ children }) => {
 // Tweets
 type TweetsContextType = {
   tweetsQuery?: UseInfiniteQueryResult;
-  createTweetMutation: UseMutationResult;
-  deleteTweetMutation: UseMutationResult;
-  getTweet?: (tweetId: string) => void;
+  createTweetMutation?: UseMutationResult<AxiosResponse<any, any>, unknown, { text: string; }, unknown>;
+  deleteTweetMutation?: UseMutationResult<AxiosResponse<any, any>, unknown, { tweetId: string; }, unknown>;
+  getTweet: (tweetId?: string) => any;
   checkIfCanDelete?: (tweetId: string) => void;
-  likeTweetMutation?: UseMutationResult;
-  unlikeTweetMutation?: UseMutationResult;
-  toggleTweetLike: (tweetId: string) => void;
+  likeTweetMutation?: UseMutationResult<AxiosResponse<any, any>, unknown, { tweetId: string; }, unknown>;
+  unlikeTweetMutation?: UseMutationResult<AxiosResponse<any, any>, unknown, { tweetId: string; }, unknown>;
+  toggleTweetLike?: (tweetId: string) => void;
 };
 
-const TweetsContext = createContext<TweetsContextType>({});
+const TweetsContext = createContext<TweetsContextType>({
+  getTweet: () => null
+});
 
 export const useTweetsContext = () => {
   const context = useContext(TweetsContext);
@@ -135,10 +148,10 @@ const TweetsProvider: FC = ({ children }) => {
       return client.tweets.getAll({ page: pageParam });
     },
     {
-      getNextPageParam: (lastPage, allPages) => {
+      getNextPageParam: (lastPage: any, allPages: any) => {
         const hasNextPage =
-          lastPage.data.tweets.length % 10 === 0 &&
-          lastPage.data.tweets.length !== 0;
+          lastPage?.data?.tweets?.length % 10 === 0 &&
+          lastPage?.data?.tweets?.length !== 0;
         const pages = allPages.length;
         if (hasNextPage) {
           return pages + 1;
@@ -147,17 +160,20 @@ const TweetsProvider: FC = ({ children }) => {
     }
   );
 
-  const getTweet = (tweetId: string) => {
-    const cache = queryClient.getQueryData('tweets');
-    const tweets = cache.pages.map((page) => page.data.tweets).flat();
-    const tweet = tweets.find((tweet) => tweet.id === tweetId);
+  const getTweet = (tweetId?: string) => {
+    if (!tweetId) {
+      return null
+    }
+    const cache = queryClient.getQueryData('tweets') as any;
+    const tweets = cache.pages.map((page: any) => page.data.tweets).flat();
+    const tweet = tweets.find((tweet: any) => tweet.id === tweetId);
 
     return tweet;
   };
 
   const checkIfCanDelete = (tweetId: string) => {
     const tweet = getTweet(tweetId)
-    return tweet.author.id === me.id
+    return tweet.author.id === me?.id
   }
 
   const toggleTweetLike = (tweetId: string) => {
@@ -190,8 +206,39 @@ export const Providers: FC = ({ children }) => {
   );
 };
 
-export const useCommentForTweetQuery = (tweetId: string) => {
+export const useCommentForTweetQuery = (tweetId?: string) => {
   return useQuery(['commentsForTweet', tweetId], () => {
-    return client.comments.getAll({ tweetId });
+    if (tweetId) {
+      return client.comments.getAll({ tweetId });
+    }
+
+    return null
+  }, {
+    enabled: !!tweetId
   });
 };
+
+export const useCommentTweetMutation = (tweetId?: string) => {
+  const queryClient = useQueryClient()
+
+  return useMutation(client.comments.create, {
+    onSuccess: (response) => {
+      if (response.status === 200) {
+        queryClient.invalidateQueries(['commentsForTweet', tweetId])
+      }
+    }
+  })
+}
+
+export const useAutoLogin = () => {
+  const { isAuthenticated, loginMutation } = useAuthContext();
+
+  useEffect(() => {
+    loginMutation?.mutate({
+      username: 'user1',
+      password: 'password1',
+    });
+  }, []);
+
+  return isAuthenticated
+}

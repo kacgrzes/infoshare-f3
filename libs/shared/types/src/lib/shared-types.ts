@@ -12,6 +12,13 @@ export type User = {
   followingIds: string[];
 };
 
+export type Me = {
+  id: string
+  name: string
+  username: string
+  profileImageUrl: string;
+}
+
 // https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/tweet
 export type Tweet = {
   id: string;

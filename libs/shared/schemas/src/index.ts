@@ -21,3 +21,13 @@ export const createTweetSchema = object({
 export const createTweetSchemaExpress = object({
   body: createTweetSchema,
 }).required();
+
+export const commentTweetSchema = object({
+  text: string()
+    .required('text is a required field')
+    .max(160, 'text must be at most 160 characters'),
+})
+
+export const commentTweetSchemaExpress = object({
+  body: commentTweetSchema,
+}).required();
