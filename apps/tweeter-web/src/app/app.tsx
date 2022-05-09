@@ -3,6 +3,7 @@ import './app.css';
 import { Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import { useAuthContext } from '@infoshare-f3/data-providers';
 import { TweetsPage, TweetPage, SignInPage } from '@infoshare-f3/web-pages';
+import { Test } from '@infoshare-f3/shared-ui';
 
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
   const { isAuthenticated } = useAuthContext();
@@ -17,28 +18,28 @@ const RequireAuth = ({ children }: { children: JSX.Element }) => {
 
 export function App() {
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <RequireAuth>
-            <TweetsPage />
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/tweets/:id"
-        element={
-          <RequireAuth>
-            <TweetPage />
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/login"
-        element={<SignInPage />}
-      />
-    </Routes>
+    <>
+      <Test />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <RequireAuth>
+              <TweetsPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/tweets/:id"
+          element={
+            <RequireAuth>
+              <TweetPage />
+            </RequireAuth>
+          }
+        />
+        <Route path="/login" element={<SignInPage />} />
+      </Routes>
+    </>
   );
 }
 
