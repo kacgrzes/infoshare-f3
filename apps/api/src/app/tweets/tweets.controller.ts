@@ -65,11 +65,18 @@ export const tweetsController = {
         message: 'You are not the author of this tweet',
       });
     }
-    await prisma.tweet.delete({
-      where: {
-        id: tweetId,
-      },
-    });
+    await prisma.$transaction([
+      prisma.comment.deleteMany({
+        where: {
+          tweetId
+        }
+      }),
+      prisma.tweet.delete({
+        where: {
+          id: tweetId,
+        },
+      })
+    ])
     return res.status(200).json({
       message: 'Tweet deleted',
     });

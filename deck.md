@@ -547,7 +547,7 @@ Wystarczy, chociaz mozemy tak w nieskończoność :)
 ## Stylowanie aplikacji mobilnej
 
 ```sh
-npm install tailwind-rn --legacy-peer-deps
+npm install twrnc --legacy-peer-deps
 ```
 
 ```sh

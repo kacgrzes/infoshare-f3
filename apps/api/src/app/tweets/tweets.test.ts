@@ -12,6 +12,8 @@ import {
   postLikeTweet,
   postTweet,
   signUp,
+  postComment,
+  getComments,
 } from '../test.utils';
 
 afterEach(cleanup);
@@ -105,7 +107,7 @@ describe('Tweets', () => {
   });
 
   describe('delete tweet', () => {
-    let token, tweet;
+    let token, tweet, me;
     beforeEach(async () => {
       await signUp();
       const loginResponse = await login();
@@ -124,6 +126,29 @@ describe('Tweets', () => {
       const response = await deleteTweet({ tweetId: tweet.id }, token);
 
       expect(response.status).toBe(200);
+    });
+
+    it('returns 200 when deleting tweet with comments', async () => {
+      await postComment(
+        {
+          text: 'Example comment #1',
+          tweetId: tweet.id,
+        },
+        token
+      );
+      await postComment(
+        {
+          text: 'Example comment #1',
+          tweetId: tweet.id,
+        },
+        token
+      );
+      let response = await getComments(tweet.id, token);
+      expect(response.body.comments).toHaveLength(2);
+      response = await deleteTweet({ tweetId: tweet.id }, token);
+      expect(response.statusCode).toBe(200);
+      response = await getComments(tweet.id, token);
+      expect(response.body.comments).toHaveLength(0);
     });
 
     it('returns 401 when trying to delete not my tweet', async () => {
