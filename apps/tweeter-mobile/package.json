@@ -10,7 +10,6 @@
     "react-native-config": "*",
     "react-native-svg": "*",
     "@react-native-async-storage/async-storage": "*",
-    "tailwind-rn": "*",
     "@testing-library/react": "*",
     "@nrwl/react": "*",
     "@react-navigation/native": "*",
@@ -27,6 +26,9 @@
     "react-query": "*",
     "axios": "*",
     "jwt-decode": "*",
-    "@testing-library/react-hooks": "*"
+    "@testing-library/react-hooks": "*",
+    "twrnc": "*",
+    "clsx": "*",
+    "react-icons": "*"
   }
 }

@@ -8,19 +8,18 @@ import {
   InputAccessoryView,
   View,
 } from 'react-native';
-import { useTailwind } from 'tailwind-rn';
+import tw from 'twrnc';
 import { useCreateTweetForm } from '@infoshare-f3/forms';
 
 export const CreateTweetScreen = () => {
   const nativeId = 'tweet-input';
   const maxCharacters = 160;
   const inputRef = useRef<TextInput>();
-  const tailwind = useTailwind();
   const { setParams, goBack } = useNavigation();
   const { control, onSubmit, formState } = useCreateTweetForm();
 
   useEffect(() => {
-    inputRef.current.focus();
+    inputRef?.current?.focus();
   }, []);
 
   useEffect(() => {
@@ -45,12 +44,12 @@ export const CreateTweetScreen = () => {
               <TextInput
                 multiline
                 onChangeText={field.onChange}
-                selectionColor={'#1DA1F2'}
-                style={tailwind('text-xl flex-grow p-4')}
+                selectionColor={tw.color('blue-400')}
+                style={tw`text-xl flex-grow p-4`}
                 ref={inputRef}
                 inputAccessoryViewID={nativeId}
                 placeholder={'Co się dzieje?'}
-                placeholderTextColor={'#657786'}
+                placeholderTextColor={tw.color('slate-400')}
                 onBlur={field.onBlur}
               >
                 {[
@@ -58,10 +57,7 @@ export const CreateTweetScreen = () => {
                   field.value.slice(maxCharacters),
                 ].map((text, index) => {
                   return (
-                    <Text
-                      key={index}
-                      style={[index === 1 && tailwind('bg-red-200')]}
-                    >
+                    <Text key={index} style={[index === 1 && tw`bg-red-200`]}>
                       {text}
                     </Text>
                   );
@@ -69,9 +65,7 @@ export const CreateTweetScreen = () => {
               </TextInput>
               <InputAccessoryView nativeID={nativeId}>
                 <View
-                  style={tailwind(
-                    'bg-white border-t border-t-light-gray p-4 items-end'
-                  )}
+                  style={tw`'bg-white border-t border-t-slate-200 p-4 items-end`}
                 >
                   <Text>
                     {field.value.length} / {maxCharacters}

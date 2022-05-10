@@ -3,13 +3,12 @@ import { StatusBar, FlatList, View, ActivityIndicator } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Tweet, TweetButton, Separator } from '@infoshare-f3/shared-ui';
 import { useTweetsContext } from '@infoshare-f3/data-providers';
-import { useTailwind } from 'tailwind-rn';
+import tw from 'twrnc'
 import { useTweeterCallbacks } from './useTweeterCallbacks';
 
 export const TweetsScreen = () => {
   const { tweetsQuery, toggleTweetLike } = useTweetsContext();
   const [isRefetching, setRefetching] = useState(false)
-  const tailwind = useTailwind();
   const { goToCreateComment, goToTweet, goToUserProfile, goToCreateTweet } =
     useTweeterCallbacks();
   const { bottom } = useSafeAreaInsets();
@@ -23,11 +22,11 @@ export const TweetsScreen = () => {
           onCommentPress={() => goToCreateComment(item.id)}
           onTweetPress={() => goToTweet(item.id)}
           onAvatarPress={() => goToUserProfile(author.id)}
-          onLikePress={() => toggleTweetLike(item.id)}
+          onLikePress={() => toggleTweetLike?.(item.id)}
         />
       );
     },
-    [goToTweet, goToCreateComment, goToUserProfile]
+    [goToTweet, goToCreateComment, goToUserProfile, toggleTweetLike]
   );
   const keyExtractor = useCallback((item) => item.id, []);
 
@@ -54,13 +53,13 @@ export const TweetsScreen = () => {
         onEndReachedThreshold={0.2}
         ListFooterComponent={
           tweetsQuery?.isFetchingNextPage && tweetsQuery?.hasNextPage ? (
-            <View style={tailwind('items-center justify-center h-12')}>
+            <View style={tw`items-center justify-center h-12`}>
               <ActivityIndicator />
             </View>
           ) : null
         }
       />
-      <View style={[tailwind('absolute right-4'), { bottom }]}>
+      <View style={[tw`absolute right-4`, { bottom }]}>
         <TweetButton onPress={goToCreateTweet} />
       </View>
     </>

@@ -7,7 +7,7 @@ module.exports = (config, context) => {
       alias: {
         'react-native$': 'react-native-web',
       },
-      extensions: ['.web.js', '.web.ts', '.web.tsx'],
+      extensions: ['.web.js', '.web.jsx', '.web.ts', '.web.tsx'],
     },
   });
 };

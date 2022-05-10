@@ -17,6 +17,7 @@ import {
   UserProfileScreen,
   SignInScreen,
 } from '@infoshare-f3/native-screens';
+import tw from 'twrnc'
 import { useAuthContext, useTweetsContext } from '@infoshare-f3/data-providers';
 
 const Stack = createNativeStackNavigator();
@@ -72,12 +73,12 @@ export const App = () => {
     <NavigationContainer
       theme={{
         colors: {
-          background: '#FFFFFF',
-          border: '#FFFFFF',
-          card: '#FFFFFF',
-          notification: 'red',
-          text: '#14171A',
-          primary: '#1DA1F2',
+          background: tw.color('white'),
+          border: tw.color('white'),
+          card: tw.color('white'),
+          notification: tw.color('red-400'),
+          text: tw.color('slate-900'),
+          primary: tw.color('blue-400'),
         },
         dark: false,
       }}

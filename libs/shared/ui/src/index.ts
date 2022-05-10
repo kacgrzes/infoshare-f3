@@ -1,4 +1,3 @@
-export * from './Test';
 export * from './Avatar';
 export * from './Button';
 export * from './Tweet';

@@ -8,14 +8,13 @@ import {
   InputAccessoryView,
   View,
 } from 'react-native';
-import { useTailwind } from 'tailwind-rn';
+import tw from 'twrnc';
 import { useCommentTweetForm } from '@infoshare-f3/forms';
 
 export const CommentTweetScreen = () => {
   const nativeId = 'tweet-input';
   const maxCharacters = 160;
   const inputRef = useRef<TextInput>();
-  const tailwind = useTailwind();
   const { setParams, goBack } = useNavigation();
   const { control, onSubmit, formState } = useCommentTweetForm();
 
@@ -45,12 +44,12 @@ export const CommentTweetScreen = () => {
               <TextInput
                 multiline
                 onChangeText={field.onChange}
-                selectionColor={'#1DA1F2'}
-                style={tailwind('text-xl flex-grow p-4')}
+                selectionColor={tw.color('blue-400')}
+                style={tw`text-xl flex-grow p-4`}
                 ref={inputRef}
                 inputAccessoryViewID={nativeId}
                 placeholder={'Skomentuj tweeta'}
-                placeholderTextColor={'#657786'}
+                placeholderTextColor={tw.color('slate-400')}
                 onBlur={field.onBlur}
               >
                 {[
@@ -60,7 +59,7 @@ export const CommentTweetScreen = () => {
                   return (
                     <Text
                       key={index}
-                      style={[index === 1 && tailwind('bg-red-200')]}
+                      style={[index === 1 && tw`bg-red-200`]}
                     >
                       {text}
                     </Text>
@@ -69,9 +68,7 @@ export const CommentTweetScreen = () => {
               </TextInput>
               <InputAccessoryView nativeID={nativeId}>
                 <View
-                  style={tailwind(
-                    'bg-white border-t border-t-light-gray p-4 items-end'
-                  )}
+                  style={tw`bg-white border-t border-t-slate-200 p-4 items-end`}
                 >
                   <Text>
                     {field.value.length} / {maxCharacters}

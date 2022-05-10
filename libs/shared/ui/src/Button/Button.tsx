@@ -1,25 +1,28 @@
-import React from 'react';
-import clsx from 'clsx';
-import { ButtonProps } from './Button.props';
+import React, { FC } from 'react';
+import { Pressable, Text } from 'react-native';
+import tw from 'twrnc';
+import type { ButtonProps } from './Button.props';
 
-export const Button = ({
+export const Button: FC<ButtonProps> = ({
   title,
   size = 'normal',
   onPress,
   disabled,
-}: ButtonProps) => {
+}) => {
   return (
-    <button
+    <Pressable
       disabled={disabled}
-      onClick={onPress}
-      className={clsx(
-        disabled ? 'bg-gray' : 'bg-blue',
-        'text-white justify-center items-center rounded-full px-4',
-        size === 'small' && 'h-8 max-h-8',
-        size === 'normal' && 'h-11 max-h-11'
-      )}
+      style={[
+        tw`
+          bg-blue-400 justify-center items-center rounded-full px-4'
+        `,
+        size === 'small' && tw`h-8 max-h-8`,
+        size === 'normal' && tw`h-11 max-h-11`,
+        disabled && tw`bg-slate-300`,
+      ]}
+      onPress={onPress}
     >
-      {title}
-    </button>
+      <Text style={tw`text-white`}>{title}</Text>
+    </Pressable>
   );
 };

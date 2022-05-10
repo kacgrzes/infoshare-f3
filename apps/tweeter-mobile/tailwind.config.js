@@ -8,5 +8,4 @@ module.exports = {
     join(__dirname, 'src/**/*!(*.stories|*.spec).{ts,tsx,html}'),
     ...createGlobPatternsForDependencies(__dirname),
   ],
-  plugins: [require('tailwind-rn/unsupported-core-plugins')],
 };
