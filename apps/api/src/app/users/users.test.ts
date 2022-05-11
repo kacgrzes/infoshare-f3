@@ -1,5 +1,6 @@
 import { prisma } from '../prisma';
-import { signUp, getAllUsers, cleanup } from '../test.utils';
+import { signUp, login, getAllUsers, deleteUser, cleanup, createUser } from '../test.utils';
+import jwtDecode from 'jwt-decode';
 
 afterEach(cleanup);
 
@@ -97,13 +98,40 @@ describe('Users', () => {
       expect(response.body).toHaveProperty('users');
     });
 
-    it('returns users with properties: username, id', async () => {
+    it('returns users with properties: username, id, name, profileImageUrl', async () => {
       await signUp();
       const response = await getAllUsers();
       const firstUser = response.body.users[0];
       const keys = new Set(Object.keys(firstUser));
 
-      expect(keys).toEqual(new Set(['username', 'id']));
+      expect(keys).toEqual(new Set(['username', 'id', 'name', 'profileImageUrl']));
     });
   });
+
+  describe('delete users', () => {
+    it('cannot delete user if not admin', async () => {
+      await signUp()
+      const loginResponse = await login()
+      const token = loginResponse.body.token
+      const user = jwtDecode<{ id: string }>(token);
+      const userId = user.id
+
+      const response = await deleteUser(userId, token)
+      expect(response.status).toBe(401)
+    })
+    it('can delete user when admin', async () => {
+      await createUser({
+        username: 'admin1',
+        password: 'password1',
+        role: 'admin',
+      })
+      const loginResponse = await login('admin1', 'password1')
+      const token = loginResponse.body.token
+      const user = jwtDecode<{ id: string }>(token);
+      const userId = user.id
+
+      const response = await deleteUser(userId, token)
+      expect(response.status).toBe(200)
+    })
+  })
 });

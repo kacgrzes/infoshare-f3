@@ -2,6 +2,7 @@ import * as supertest from 'supertest';
 import * as bcrypt from 'bcrypt';
 import app from './index';
 import { prisma } from './prisma';
+import { Role } from '@infoshare-f3/shared-types'
 
 const agent = supertest(app);
 
@@ -14,13 +15,27 @@ export const cleanup = async () => {
   ]);
 };
 
-export const createUser = async () => {
-  const hashedPassword = await bcrypt.hash('password1', 10);
+type CreateUserType = {
+  username?: string,
+  password?: string,
+  role?: Role,
+}
+
+
+
+export const createUser = async (data: CreateUserType = {}) => {
+  const {
+    username = 'user1',
+    password = 'password1',
+    role = 'user',
+  } = data
+  const hashedPassword = await bcrypt.hash(password, 10);
   return await prisma.user.create({
     data: {
-      username: 'user1',
+      username,
       password: hashedPassword,
       name: 'John Doe',
+      role,
     },
   });
 };
@@ -76,6 +91,14 @@ export const getAllUsers = async () => {
   return await agent.get('/api/1.0/users');
 };
 
+export const deleteUser = async (userId: string, token?: string) => {
+  const deleteUserRequest = agent.delete(`/api/1.0/users/${userId}`);
+  if (token) {
+    deleteUserRequest.set('Authorization', `Bearer ${token}`);
+  }
+  return await deleteUserRequest;
+}
+
 export const getTweets = async (
   token?: string,
   queryParams?: { page: number }
@@ -128,6 +151,21 @@ export const postComment = async ({ tweetId, text }, token?: string) => {
   }
   return await postCommentRequest;
 };
+
+export const deleteComment = async ({
+  tweetId,
+  commentId
+}: {
+  tweetId: string,
+  commentId: string,
+}, token?: string) => {
+  const deleteCommentRequest = agent
+    .delete(`/api/1.0/tweets/${tweetId}/comments/${commentId}`)
+  if (token) {
+    deleteCommentRequest.set('Authorization', `Bearer ${token}`);
+  }
+  return await deleteCommentRequest;
+}
 
 export const postLikeTweet = async (tweetId: number, token?: string) => {
   const postLikeTweetRequest = agent.post(`/api/1.0/tweets/${tweetId}/likes`);

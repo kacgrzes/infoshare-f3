@@ -51,3 +51,33 @@ router.post('/', async (req: Request, res: Response) => {
 
   return res.status(200).json(comment);
 });
+
+router.delete('/:commentId', async (req: Request, res: Response) => {
+  const { user } = req
+  const commentId = req.params.commentId;
+
+  const comment = await prisma.comment.findUnique({
+    where: {
+      id: commentId,
+    },
+    select: {
+      authorId: true,
+    },
+  })
+  
+  if (user.role === "user" && comment.authorId !== user.id) {
+    return res.status(401).json({
+      message: 'You are not the author of this comment',
+    });
+  }
+
+  await prisma.comment.delete({
+    where: {
+      id: commentId
+    }
+  })
+
+  return res.status(200).json({
+    message: 'Comment deleted',
+  });
+})

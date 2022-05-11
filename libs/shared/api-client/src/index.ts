@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { User } from '@infoshare-f3/shared-types';
 
 const instance = axios.create({
   baseURL: 'http://localhost:3333/',
@@ -64,6 +65,16 @@ export const client = {
         `/api/1.0/tweets/${tweetId}/comments`,
         { text }
       );
+      return response;
+    },
+  },
+  users: {
+    getAll: async () => {
+      const response = await instance.get<{ users: User[] }>(`/api/1.0/users`);
+      return response;
+    },
+    delete: async (userId: string) => {
+      const response = await instance.delete(`/api/1.0/users/${userId}`);
       return response;
     },
   },

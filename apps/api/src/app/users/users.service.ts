@@ -19,6 +19,8 @@ export const usersService = {
       select: {
         id: true,
         username: true,
+        name: true,
+        profileImageUrl: true,
       },
     });
 

@@ -164,6 +164,21 @@ describe('Tweets', () => {
         'You are not the author of this tweet'
       );
     });
+
+    it('admin can delete tweet', async () => {
+      await createUser({
+        username: 'admin1',
+        password: 'password1',
+        role: 'admin'
+      })
+      const loginResponse = await login('admin1', 'password1');
+      const response = await deleteTweet(
+        { tweetId: tweet.id },
+        loginResponse.body.token
+      );
+
+      expect(response.status).toBe(200)
+    })
   });
 
   describe('liking tweet', () => {

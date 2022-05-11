@@ -11,8 +11,8 @@ model Like {
   id      String @id @default(cuid())
   userId  String
   tweetId String
-  tweet   Tweet  @relation(fields: [tweetId], references: [id])
-  user    User   @relation(fields: [userId], references: [id])
+  tweet   Tweet  @relation(fields: [tweetId], references: [id], onDelete: Cascade)
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique(fields: [userId, tweetId], name: "likeId")
 }
@@ -27,6 +27,7 @@ model User {
   likes           Like[]
   tweets          Tweet[]
   profileImageUrl String?
+  role            String    @default("user")
 }
 
 model Tweet {
@@ -34,7 +35,7 @@ model Tweet {
   createdAt DateTime  @default(now())
   text      String
   authorId  String
-  author    User      @relation(fields: [authorId], references: [id])
+  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   comments  Comment[]
   likedBy   Like[]
 }
@@ -45,6 +46,6 @@ model Comment {
   createdAt DateTime @default(now())
   text      String
   tweetId   String
-  author    User     @relation(fields: [authorId], references: [id])
-  tweet     Tweet    @relation(fields: [tweetId], references: [id])
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  tweet     Tweet    @relation(fields: [tweetId], references: [id], onDelete: Cascade)
 }

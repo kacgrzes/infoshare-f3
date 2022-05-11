@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 
 const main = async () => {
   await prisma.$transaction([
+    prisma.like.deleteMany(),
     prisma.comment.deleteMany(),
     prisma.tweet.deleteMany(),
     prisma.user.deleteMany(),
@@ -19,6 +20,7 @@ const main = async () => {
           password: bcrypt.hashSync(user.password, 10),
           name: user.name,
           profileImageUrl: user.profileImageUrl,
+          role: user.role
         },
       });
     })
@@ -49,7 +51,7 @@ const main = async () => {
   );
   await prisma.$transaction(
     users
-      .map((user) => {
+      .flatMap((user) => {
         return user.likedTweetsIds.map((tweetId) => {
           return prisma.like.create({
             data: {
@@ -59,7 +61,6 @@ const main = async () => {
           });
         });
       })
-      .flat()
   );
 };
 

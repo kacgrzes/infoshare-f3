@@ -6,6 +6,7 @@ import {
   createComment,
   login,
   postComment,
+  deleteComment,
 } from '../test.utils';
 
 afterEach(cleanup);
@@ -125,4 +126,67 @@ describe('Comments', () => {
       expect(response.body.comments).toHaveLength(2);
     });
   });
+
+  describe('delete comment', () => {
+    it('user that created comment can delete it', async () => {
+      const createCommentResponse = await createComment({
+        authorId: user.id,
+        text: 'Example comment #1',
+        tweetId: tweet.id,
+      })
+      const commentId = createCommentResponse.id
+
+      let commentsResponse = await getComments(tweet.id, token)
+      expect(commentsResponse.body.comments).toHaveLength(1)
+
+      const deleteCommentResponse = await deleteComment({
+        commentId,
+        tweetId: tweet.id
+      }, token);
+      commentsResponse = await getComments(tweet.id, token)
+      
+      expect(deleteCommentResponse.status).toBe(200);
+      expect(commentsResponse.body.comments).toHaveLength(0)
+    })
+    it('user that didn\'t create comment cannot delete it', async () => {
+      const createCommentResponse = await createComment({
+        authorId: user.id,
+        text: 'Example comment #1',
+        tweetId: tweet.id,
+      })
+      const commentId = createCommentResponse.id
+      user = await createUser({
+        username: 'user2',
+        password: 'password2',
+      });
+      const loginResponse = await login('user2', 'password2');
+      token = loginResponse.body.token;
+      const response = await deleteComment({
+        tweetId: tweet.id,
+        commentId,
+      }, token)
+      expect(response.status).toBe(401)
+    })
+    it('admin can delete all comments', async () => {
+      const createCommentResponse = await createComment({
+        authorId: user.id,
+        text: 'Example comment #1',
+        tweetId: tweet.id,
+      })
+      const commentId = createCommentResponse.id
+      user = await createUser({
+        username: 'admin1',
+        password: 'password1',
+        role: 'admin'
+      })
+      const loginResponse = await login('admin1', 'password1');
+      token = loginResponse.body.token;
+
+      const response = await deleteComment({
+        tweetId: tweet.id,
+        commentId,
+      }, token)
+      expect(response.status).toBe(200)
+    })
+  })
 });
