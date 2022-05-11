@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { FlatList, View, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRoute } from '@react-navigation/native';
-import { users, tweets } from '@infoshare-f3/shared-test-data';
+import { users, tweets } from '@infoshare-f3/test-data';
 import { Avatar, Tweet, Separator } from '@infoshare-f3/ui';
 import { useTweeterCallbacks } from './useTweeterCallbacks';
 import tw from 'twrnc';

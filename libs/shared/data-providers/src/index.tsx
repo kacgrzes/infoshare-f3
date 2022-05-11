@@ -12,7 +12,7 @@ import {
 import { client } from '@infoshare-f3/api-client';
 import { AxiosResponse } from 'axios';
 import jwtDecode from 'jwt-decode';
-import { Me } from '@infoshare-f3/shared-types'
+import { Me } from '@infoshare-f3/types'
 
 export const queryClient = new QueryClient({
   defaultOptions: {

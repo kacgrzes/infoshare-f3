@@ -1,4 +1,4 @@
-import { Tweet, User } from '@infoshare-f3/shared-types';
+import { Tweet, User } from '@infoshare-f3/types';
 
 export type TweetProps = {
   author: User;

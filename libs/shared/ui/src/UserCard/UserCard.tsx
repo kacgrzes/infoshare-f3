@@ -1,5 +1,5 @@
 import React from 'react';
-import { User } from '@infoshare-f3/shared-types';
+import { User } from '@infoshare-f3/types';
 import { View, Text } from 'react-native';
 import { Button } from '../Button';
 import { Avatar } from '../Avatar';

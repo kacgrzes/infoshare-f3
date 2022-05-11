@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { User } from '@infoshare-f3/shared-types';
+import { User } from '@infoshare-f3/types';
 
 const instance = axios.create({
   baseURL: 'http://localhost:3333/',

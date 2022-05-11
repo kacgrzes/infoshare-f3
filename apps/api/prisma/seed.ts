@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { users, tweets, comments } from '@infoshare-f3/shared-test-data';
+import { users, tweets, comments } from '@infoshare-f3/test-data';
 import * as bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();

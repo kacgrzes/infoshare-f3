@@ -1,4 +1,4 @@
-import { User, Role, Tweet, Comment } from '@infoshare-f3/shared-types';
+import { User, Role, Tweet, Comment } from '@infoshare-f3/types';
 import faker from '@faker-js/faker';
 import { generateRandomId } from './generateRandomId';
 

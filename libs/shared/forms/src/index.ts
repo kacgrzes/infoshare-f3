@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createTweetSchema, commentTweetSchema } from '@infoshare-f3/schemas';
-import { CreateComment } from '@infoshare-f3/shared-types';
+import { CreateComment } from '@infoshare-f3/types';
 import { useTweetsContext, useCommentTweetMutation } from '@infoshare-f3/data-providers';
 
 export const useCreateTweetForm = () => {

@@ -1,6 +1,6 @@
 import { signUp, login, cleanup, createUser } from '../test.utils';
 import jwtDecode from 'jwt-decode'
-import { Role } from '@infoshare-f3/shared-types'
+import { Role } from '@infoshare-f3/types'
 
 afterEach(cleanup);
 

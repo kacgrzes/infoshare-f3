@@ -2,7 +2,7 @@ import * as supertest from 'supertest';
 import * as bcrypt from 'bcrypt';
 import app from './index';
 import { prisma } from './prisma';
-import { Role } from '@infoshare-f3/shared-types'
+import { Role } from '@infoshare-f3/types'
 
 const agent = supertest(app);
 

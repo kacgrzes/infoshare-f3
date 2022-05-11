@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import tw from 'twrnc';
 import { Avatar } from '../Avatar';
 
-import { User, Comment } from '@infoshare-f3/shared-types';
+import { User, Comment } from '@infoshare-f3/types';
 
 export type CommentCardProps = {
   author: User;
