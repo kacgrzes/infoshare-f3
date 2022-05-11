@@ -3,12 +3,12 @@ import { StatusBar, FlatList, View, ActivityIndicator } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Tweet, TweetButton, Separator } from '@infoshare-f3/shared-ui';
 import { useTweetsContext } from '@infoshare-f3/data-providers';
-import tw from 'twrnc'
+import tw from 'twrnc';
 import { useTweeterCallbacks } from './useTweeterCallbacks';
 
 export const TweetsScreen = () => {
-  const { tweetsQuery, toggleTweetLike } = useTweetsContext();
-  const [isRefetching, setRefetching] = useState(false)
+  const { tweetsQuery, tweets, toggleTweetLike } = useTweetsContext();
+  const [isRefetching, setRefetching] = useState(false);
   const { goToCreateComment, goToTweet, goToUserProfile, goToCreateTweet } =
     useTweeterCallbacks();
   const { bottom } = useSafeAreaInsets();
@@ -34,16 +34,13 @@ export const TweetsScreen = () => {
     <>
       <StatusBar barStyle="dark-content" animated />
       <FlatList
-        data={
-          tweetsQuery?.data?.pages?.map((page) => page.data.tweets)?.flat() ??
-          []
-        }
+        data={tweets}
         refreshing={isRefetching}
         onRefresh={() => {
-          setRefetching(true)
+          setRefetching(true);
           tweetsQuery?.refetch().then(() => {
-            setRefetching(false)
-          })
+            setRefetching(false);
+          });
         }}
         ItemSeparatorComponent={Separator}
         contentContainerStyle={{ paddingBottom: bottom }}

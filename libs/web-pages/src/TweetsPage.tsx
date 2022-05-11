@@ -8,11 +8,8 @@ import { useAuthContext, useTweetsContext } from '@infoshare-f3/data-providers'
 export const TweetsPage = () => {
   const { me } = useAuthContext();
   const navigate = useNavigate();
-  const { tweetsQuery, toggleTweetLike } = useTweetsContext();
+  const { tweetsQuery, tweets, toggleTweetLike } = useTweetsContext();
   const { register, formState, onSubmit, setValue } = useCreateTweetForm();
-  const tweets =
-    tweetsQuery?.data?.pages?.map((page: any) => page?.data?.tweets)?.flat() ??
-    [];
 
   return <Container>
   <div className="flex flex-col">
@@ -64,7 +61,7 @@ export const TweetsPage = () => {
     }
     refreshFunction={tweetsQuery?.refetch}
   >
-    {tweets.map((tweet) => (
+    {tweets.map((tweet: any) => (
       <Fragment key={tweet.id}>
         <Tweet
           author={tweet.author}

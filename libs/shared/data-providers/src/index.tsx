@@ -73,7 +73,6 @@ const AuthProvider: FC = ({ children }) => {
     setMe(null)
   }
   const isAuthenticated = queryClient.defaultQueryOptions().enabled && me !== null;
-  console.log(isAuthenticated)
 
   return (
     <AuthContext.Provider
@@ -85,6 +84,7 @@ const AuthProvider: FC = ({ children }) => {
 
 // Tweets
 type TweetsContextType = {
+  tweets?: any;
   tweetsQuery?: UseInfiniteQueryResult;
   createTweetMutation?: UseMutationResult<AxiosResponse<any, any>, unknown, { text: string; }, unknown>;
   deleteTweetMutation?: UseMutationResult<AxiosResponse<any, any>, unknown, { tweetId: string; }, unknown>;
@@ -182,8 +182,13 @@ const TweetsProvider: FC = ({ children }) => {
     mutation.mutate({ tweetId });
   };
 
+  const tweets =
+    tweetsQuery?.data?.pages?.flatMap((page: any) => page?.data?.tweets) ??
+    [];
+
   const value = {
     tweetsQuery,
+    tweets,
     createTweetMutation,
     deleteTweetMutation,
     likeTweetMutation,
@@ -241,4 +246,19 @@ export const useAutoLogin = () => {
   }, []);
 
   return isAuthenticated
+}
+
+export const useUsersQuery = () => {
+  return useQuery('users', client.users.getAll); 
+}
+
+export const useDeleteUserMutation = () => {
+  const queryClient = useQueryClient()
+  return useMutation(client.users.delete, {
+    onSuccess: (response) => {
+      if (response.status === 200) {
+        queryClient.invalidateQueries('users')
+      }
+    }
+  })
 }

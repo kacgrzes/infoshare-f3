@@ -5,3 +5,4 @@ export * from './TweetButton';
 export * from './CommentCard';
 export * from './Separator';
 export * from './Container';
+export * from './UserCard';

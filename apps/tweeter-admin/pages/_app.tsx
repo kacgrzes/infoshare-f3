@@ -2,6 +2,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import './styles.css';
 import './tailwind.css';
+import { Providers } from '@infoshare-f3/data-providers'
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
@@ -10,7 +11,9 @@ function CustomApp({ Component, pageProps }: AppProps) {
         <title>Welcome to tweeter-admin!</title>
       </Head>
       <main className="app">
-        <Component {...pageProps} />
+        <Providers>
+          <Component {...pageProps} />
+        </Providers>
       </main>
     </>
   );
