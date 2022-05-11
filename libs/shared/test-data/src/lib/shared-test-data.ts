@@ -1,13 +1,15 @@
-import { User, Tweet, Comment } from '@infoshare-f3/shared-types';
+import { User, Role, Tweet, Comment } from '@infoshare-f3/shared-types';
 import faker from '@faker-js/faker';
 import { generateRandomId } from './generateRandomId';
 
 const createRandomUser = ({
   username = faker.internet.userName(),
   password = faker.internet.password(),
+  role = "user"
 }: {
   username?: string;
   password?: string;
+  role?: Role
 }): User => {
   return {
     id: generateRandomId(),
@@ -20,6 +22,7 @@ const createRandomUser = ({
     likedTweetsIds: [],
     followersIds: [],
     followingIds: [],
+    role
   };
 };
 
@@ -52,7 +55,12 @@ const createRandomComment = ({
 };
 
 export const users = [
-  ...new Array(48).fill(null).map(() => createRandomUser({})),
+  ...new Array(47).fill(null).map(() => createRandomUser({})),
+  createRandomUser({
+    username: 'admin1',
+    password: 'password1',
+    role: "admin"
+  }),
   createRandomUser({
     username: 'user1',
     password: 'password1',

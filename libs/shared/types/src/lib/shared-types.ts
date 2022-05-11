@@ -1,4 +1,6 @@
 // https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/user
+export type Role = "user" | "admin";
+
 export type User = {
   id: string;
   createdAt: Date;
@@ -10,6 +12,7 @@ export type User = {
   likedTweetsIds: string[];
   followersIds: string[];
   followingIds: string[];
+  role: Role;
 };
 
 export type Me = {
