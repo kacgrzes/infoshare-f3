@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom'
-import { Tweet, Container, CommentCard, Separator, Avatar, Button } from '@infoshare-f3/shared-ui';
+import { Tweet, Container, CommentCard, Separator, Avatar, Button } from '@infoshare-f3/ui';
 import { useTweetsContext, useAuthContext, useCommentForTweetQuery } from '@infoshare-f3/data-providers'
 import { useCommentTweetForm } from '@infoshare-f3/forms'
 

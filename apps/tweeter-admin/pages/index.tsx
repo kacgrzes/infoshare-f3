@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Button } from '@infoshare-f3/shared-ui';
+import { Button } from '@infoshare-f3/ui';
 import { useAuthContext } from '@infoshare-f3/data-providers';
 
 export function Index() {

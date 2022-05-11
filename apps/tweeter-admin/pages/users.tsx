@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useAuthContext, useUsersQuery, useDeleteUserMutation } from '@infoshare-f3/data-providers'
-import { UserCard } from '@infoshare-f3/shared-ui'
+import { UserCard } from '@infoshare-f3/ui'
 
 const Users = () => {
   const router = useRouter()

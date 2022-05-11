@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useNavigate } from 'react-router-dom';
-import { Tweet, Avatar, Button, Separator, Container } from '@infoshare-f3/shared-ui';
+import { Tweet, Avatar, Button, Separator, Container } from '@infoshare-f3/ui';
 import { useCreateTweetForm } from '@infoshare-f3/forms';
 import { useAuthContext, useTweetsContext } from '@infoshare-f3/data-providers'
 

@@ -1,9 +1,18 @@
 import React from 'react';
 import { Pressable, Image } from 'react-native';
 import tw from 'twrnc';
-import { AvatarProps } from './Avatar.props';
 
-export const Avatar = ({ size = 'normal', profileImageUrl, onPress}: AvatarProps) => {
+export type AvatarProps = {
+  size?: 'small' | 'normal' | 'big';
+  profileImageUrl: string;
+  onPress?: () => void;
+};
+
+export const Avatar = ({
+  size = 'normal',
+  profileImageUrl,
+  onPress,
+}: AvatarProps) => {
   return (
     <Pressable style={tw`flex-shrink`} onPress={onPress}>
       <Image
@@ -11,10 +20,10 @@ export const Avatar = ({ size = 'normal', profileImageUrl, onPress}: AvatarProps
           tw`bg-slate-300 rounded-full`,
           size === 'small' && tw`w-8 h-8`,
           size === 'normal' && tw`w-12 h-12`,
-          size === "big" && tw`w-16 h-16`,
+          size === 'big' && tw`w-16 h-16`,
         ]}
         source={{
-          uri: profileImageUrl
+          uri: profileImageUrl,
         }}
       />
     </Pressable>

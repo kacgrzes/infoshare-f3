@@ -1,5 +1,5 @@
 import { useLocation, useNavigate, Location } from 'react-router-dom';
-import { Container, Button } from '@infoshare-f3/shared-ui'
+import { Container, Button } from '@infoshare-f3/ui'
 import { useAuthContext } from '@infoshare-f3/data-providers'
 
 export const SignInPage = () => {

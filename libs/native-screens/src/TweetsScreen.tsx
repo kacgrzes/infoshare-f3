@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { StatusBar, FlatList, View, ActivityIndicator } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Tweet, TweetButton, Separator } from '@infoshare-f3/shared-ui';
+import { Tweet, TweetButton, Separator } from '@infoshare-f3/ui';
 import { useTweetsContext } from '@infoshare-f3/data-providers';
 import tw from 'twrnc';
 import { useTweeterCallbacks } from './useTweeterCallbacks';

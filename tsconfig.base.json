@@ -25,7 +25,7 @@
       "@infoshare-f3/schemas": ["libs/shared/schemas/src/index.ts"],
       "@infoshare-f3/shared-test-data": ["libs/shared/test-data/src/index.ts"],
       "@infoshare-f3/shared-types": ["libs/shared/types/src/index.ts"],
-      "@infoshare-f3/shared-ui": ["libs/shared/ui/src/index.ts"],
+      "@infoshare-f3/ui": ["libs/shared/ui/src/index.ts"],
       "@infoshare-f3/web-pages": ["libs/web-pages/src/index.ts"]
     }
   },

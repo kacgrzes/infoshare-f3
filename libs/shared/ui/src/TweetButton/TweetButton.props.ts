@@ -1,3 +1,3 @@
 export type TweetButtonProps = {
-  onPress: () => void  
-}
+  onPress: () => void;
+};

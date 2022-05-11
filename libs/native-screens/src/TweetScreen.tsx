@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { StatusBar, FlatList } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRoute } from '@react-navigation/native';
-import { Tweet, CommentCard } from '@infoshare-f3/shared-ui';
+import { Tweet, CommentCard } from '@infoshare-f3/ui';
 import {
   useCommentForTweetQuery,
   useTweetsContext,

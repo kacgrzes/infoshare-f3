@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { useAuthContext } from '@infoshare-f3/data-providers';
-import { Button } from '@infoshare-f3/shared-ui';
+import { Button } from '@infoshare-f3/ui';
 import tw from 'twrnc';
 
 export const SignInScreen = () => {

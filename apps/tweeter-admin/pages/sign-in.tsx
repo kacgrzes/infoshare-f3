@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { Button, Container } from '@infoshare-f3/shared-ui'
+import { Button, Container } from '@infoshare-f3/ui'
 import { useAuthContext } from '@infoshare-f3/data-providers'
 
 const SignIn = () => {

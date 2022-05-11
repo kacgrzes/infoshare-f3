@@ -1,9 +1,14 @@
 import React from 'react';
-import { UserCardProps } from './UserCard.props';
+import { User } from '@infoshare-f3/shared-types';
 import { View, Text } from 'react-native';
 import { Button } from '../Button';
 import { Avatar } from '../Avatar';
 import tw from "twrnc";
+
+export type UserCardProps = {
+  user: User;
+  onPress?: () => void;
+};
 
 export const UserCard = (props: UserCardProps) => {
   const { user, onPress } = props

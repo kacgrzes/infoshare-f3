@@ -1,5 +1,5 @@
 import { useTweetsContext } from '@infoshare-f3/data-providers';
-import { Button, Tweet } from '@infoshare-f3/shared-ui';
+import { Button, Tweet } from '@infoshare-f3/ui';
 
 const Tweets = () => {
   const { tweets, deleteTweetMutation } = useTweetsContext();

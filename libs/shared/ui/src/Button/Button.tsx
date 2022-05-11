@@ -1,7 +1,13 @@
 import React, { FC } from 'react';
 import { Pressable, Text } from 'react-native';
 import tw from 'twrnc';
-import type { ButtonProps } from './Button.props';
+
+type ButtonProps = {
+  size?: 'small' | 'normal';
+  title: string;
+  onPress?: () => void;
+  disabled?: boolean;
+};
 
 export const Button: FC<ButtonProps> = ({
   title,

@@ -8,7 +8,7 @@ import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
 } from '@react-navigation/native-stack';
-import { Avatar, Button } from '@infoshare-f3/shared-ui';
+import { Avatar, Button } from '@infoshare-f3/ui';
 import {
   CommentTweetScreen,
   CreateTweetScreen,
