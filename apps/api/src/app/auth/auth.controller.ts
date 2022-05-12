@@ -12,6 +12,7 @@ export const authController = {
         username,
       },
     });
+    console.log(foundUser.id)
     if (!foundUser) {
       return res.status(404).json({
         message: 'User not found',

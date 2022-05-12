@@ -1,18 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
 import { AnyObjectSchema } from 'yup';
 import * as jwt from 'jsonwebtoken';
+import { User } from '@infoshare-f3/types'
 
-export function authenticateToken(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export { json } from 'body-parser';
+export * as cors from 'cors';
+
+export function authenticate(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
   if (token == null) return res.sendStatus(401);
 
-  jwt.verify(token, 's3cr3t', (err: any, user: any) => {
+  jwt.verify(token, 's3cr3t', (err, user: User) => {
     if (err) return res.sendStatus(403);
 
     req.user = user;
@@ -37,3 +37,7 @@ export const validate =
       });
     }
   };
+
+export const delay = (ms: number) => (req: Request, res: Response, next: NextFunction) => {
+  return setTimeout(next, ms)
+}

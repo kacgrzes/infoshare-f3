@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { usersController } from './users.controller';
-import { validate, authenticateToken } from '../middlewares';
+import { validate, authenticate } from '../middlewares';
 import { createUserSchemaExpress } from '@infoshare-f3/schemas';
 
 export const router = Router();
@@ -10,5 +10,5 @@ router.post(
   validate(createUserSchemaExpress),
   usersController.signUp
 );
-router.get('/users', usersController.getAll);
-router.delete('/users/:userId', authenticateToken, usersController.delete)
+router.get('/users', authenticate, usersController.getAll);
+router.delete('/users/:userId', authenticate, usersController.delete);

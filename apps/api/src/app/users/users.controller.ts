@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
 import { usersService } from './users.service';
-import { prisma } from '../prisma'
 
 export const usersController = {
   signUp: async (req: Request, res: Response) => {
+    const { username, password, name } = req.body
     try {
       await usersService.createUser({
-        username: req.body.username,
-        password: req.body.password,
-        name: req.body.name,
+        username,
+        password,
+        name,
       });
       return res.status(200).json({
         message: 'User was signed up successfully',
@@ -33,11 +33,7 @@ export const usersController = {
       })
     }
 
-    await prisma.user.delete({
-      where: {
-        id: userId
-      }
-    })
+    await usersService.delete(userId)
 
     return res.status(200).json({
       message: 'User deleted'
