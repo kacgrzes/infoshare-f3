@@ -7,6 +7,7 @@ import {
   Text,
   InputAccessoryView,
   View,
+  Platform,
 } from 'react-native';
 import tw from 'twrnc';
 import { useCreateTweetForm } from '@infoshare-f3/forms';
@@ -63,15 +64,17 @@ export const CreateTweetScreen = () => {
                   );
                 })}
               </TextInput>
-              <InputAccessoryView nativeID={nativeId}>
-                <View
-                  style={tw`'bg-white border-t border-t-slate-200 p-4 items-end`}
-                >
-                  <Text>
-                    {field.value.length} / {maxCharacters}
-                  </Text>
-                </View>
-              </InputAccessoryView>
+              {Platform.OS === 'ios' && (
+                <InputAccessoryView nativeID={nativeId}>
+                  <View
+                    style={tw`'bg-white border-t border-t-slate-200 p-4 items-end`}
+                  >
+                    <Text>
+                      {field.value.length} / {maxCharacters}
+                    </Text>
+                  </View>
+                </InputAccessoryView>
+              )}
             </>
           );
         }}

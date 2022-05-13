@@ -60,7 +60,7 @@ export const tweetsController = {
         authorId: true,
       },
     });
-    if (user.role === "user" && tweet.authorId !== user.id) {
+    if (user.role === 'user' && tweet.authorId !== user.id) {
       return res.status(401).json({
         message: 'You are not the author of this tweet',
       });
@@ -68,15 +68,15 @@ export const tweetsController = {
     await prisma.$transaction([
       prisma.comment.deleteMany({
         where: {
-          tweetId
-        }
+          tweetId,
+        },
       }),
       prisma.tweet.delete({
         where: {
           id: tweetId,
         },
-      })
-    ])
+      }),
+    ]);
     return res.status(200).json({
       message: 'Tweet deleted',
     });
@@ -127,10 +127,10 @@ export const tweetsController = {
       return res.status(200).json({
         tweet,
       });
-    } catch(error) {
+    } catch (error) {
       return res.status(400).json({
-        message: "Something went wrong"
-      })
+        message: 'Something went wrong',
+      });
     }
   },
   unlike: async (req: Request, res: Response) => {

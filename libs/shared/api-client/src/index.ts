@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { User } from '@infoshare-f3/types';
 
-const instance = axios.create({
+export const instance = axios.create({
   baseURL: 'http://localhost:3333/',
 });
 
