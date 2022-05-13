@@ -2,7 +2,55 @@
 marp: true
 ---
 
-# Hello
+1. Powietanie
+2. kim jestem, czym sie zajmuje i o czym bedzie prezka
+- (programista) 9 lat doświadczenia
+- byłem trenerem na infoshare
+- robie apki mobile (react native), frontend (react) serwer (node)
+- BUDOWANIE WIELOPLATFORMOWYCH APLIKACJI ZA POMOCĄ NARZĘDZIA NX
+3. jak podejsc do budowania aplikacji?
+- monorepo - jedno repozytorium, wiele projektów, jasno zdefiniowane granice miedzy projektami
+- polyrepo - kazda aplikacja, projekt ma swoje wlasne repozytorium. To obecnie standard pisania aplikacji. W wielu firmach w których pracowałem tworzy sie repozytoria z monolitami. Api, admin, mobile, front, kazdy ma swoje wlasne repo. Jak sa jakies czesci wspolne to wyciaga sie je do osobnych repozytoriow Często zdarza się, że każde repo ma jeden artefakt kompilacji i pipline, ktory go tworzy
+- modular - aplikacja rozbita 
+- monolith - jedna wielka aplikacja, 
+- tutaj screen
+
+wiecej na https://monorepo.tools/
+4. co budujemy?
+klon Twittera - Tweeter
+5. prezentacja jak to wyglada i jakie ma funkcjonalnosci
+6. proces budowania aplikacji:
+- najpierw okreslam jakie ficzery sa do zaimplementowania
+<!-- TODO: tutaj wypisac jakie ficzery sa do zaprogramowania -->
+- nie mam projektu w Figmie, wiec na samym poczatku zaczalem od robienia UI
+(z perspektywy czasu zaczalbym od pisania backendu)
+- w kolejnym kroku zrobilem testowe dane i zaseedowałem je
+- zastanowilem sie jak mozna wspoldzielic komponenty (dla samego faktur pokazania, ze mozna je wspoldzielic) uznalem, ze pojde w react-native-web + tailwind
+- napisalem backend w express.js za pomoca TDD (tutaj chcialem byc pewny, ze wszystko dziala jak nalezy)
+- po napisaniu backendu napisalem biblioteke, ktora jest klientem do tego api
+- react-query do fetchowania danych i cache'owania. Mozna reuzywac w innych modulach
+- budowałem aplikacje mobilna na zasadzie monolitu, ale wyciagnalem wszystkie ekrany do zewnętrznego modułu native-screens
+- budowalem aplikacje webowa na zasadzie monolitu, ale wyciagnalem wszystkie ekrany do zewnętrznego modułu web-screens
+
+5. co mozna wspoldzielic?
+- miedzy wszystkimi aplikacjami - typy, helpery, schemas
+- miedzy wszystkimi aplikacjami UI - proste komponenty UI, propsy tych komponentów, formularze, data-providers
+- api jest zbudowane w formie monolitu 
+
+- place 80% of your logic into the libs/ folder
+- and 20% into apps/
+
+6. co zrobilbym lepiej?
+- rozbiłbym aplikacje api na moduły
+- przebudowałbym aplikacje webowa tak, zeby ekrany moglybyc wspoldzielone miedzy web i admin (web jest zbudowany za pomoca create-react-app, admin za pomoca nextjs)
+
+7. jakie ficzury mozna dalej wspoldzielic?
+- lepsze wspoldzielenie typów
+- 
+
+---
+
+# Siemanko!
 
 ---
 
@@ -12,11 +60,7 @@ https://nx.dev
 
 ---
 
-Dwa tryby:
-
-- budowanie aplikacji
-- budowanie paczek
-- { 2 + Math.PI }
+# Tworzenie projektu
 
 ---
 
@@ -44,6 +88,10 @@ Nx will run "npm install" several times. Please wait.
 https://nx.dev/core-tutorial/01-create-blog
 
 ```
+
+---
+
+# Co jest w środku?
 
 ---
 
