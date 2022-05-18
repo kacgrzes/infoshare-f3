@@ -2,7 +2,7 @@
 marp: true
 theme: infoshare-f3
 size: 16:9
-footer: '![height:25px grayscale:1](images/future3-infoshare-ukraine-logo.svg) · ![height:25px grayscale:1](images/binarapps-logo.svg)'
+footer: "![height:25px grayscale:1](images/future3-infoshare-ukraine-logo.svg) · ![height:25px grayscale:1](images/binarapps-logo.svg)"
 paginate: true
 ---
 
@@ -15,8 +15,8 @@ kacgrzes.io / kacgrzes@gmail.com
 
 ## Jestem programistą JS / TS 🧑‍💻:
 
-- Mobile (React Native) - 70%
-- Web (React) - 20%
+- Mobile (React Native) - 60%
+- Web (React) - 30%
 - Server (NodeJS) - 10%
 
 ---
@@ -30,7 +30,6 @@ kacgrzes.io / kacgrzes@gmail.com
 ![bg width:120% blur:8px](images/nx-bg.png)
 
 ## `Budowanie wieloplatformowych aplikacji za pomocą narzędzia NX`
-
 
 ---
 
@@ -46,13 +45,11 @@ kacgrzes.io / kacgrzes@gmail.com
 
 ## Disclaimer
 
-> Budowanie rozbudowanego klonu na potrzeby prezentacji mija się z celem. Do aplikacji z całą pewnością da się dorzucać więcej funkcjonalności, ale celem prezentacji jest przede wszystkim pokazanie mozliwosci budowania projektów na platformie NX.
+> Budowanie rozbudowanego klonu na potrzeby prezentacji mija się z celem. Do aplikacji z całą pewnością da się dorzucać więcej funkcjonalności, ale celem prezki jest przede wszystkim pokazanie możliwości budowania projektów na platformie NX.
 
 ---
 
-## Jak podejsc do budowania wieloplatformowej aplikacji? 🤔
-
-> Teraz będzie trochę tekstu poprzeplatanego z obrazkami... dla potomnych
+## Jak podejść do budowania wieloplatformowej aplikacji? 🤔
 
 ---
 
@@ -71,7 +68,7 @@ code {
 
 ### Sposób #1 - Polyrepo
 
-> Kazda aplikacja, projekt ma swoje wlasne repozytorium. W wielu firmach w których pracowałem, to obecnie standard pisania aplikacji. Tworzy sie repozytoria z monolitami. api, admin, mobile, web, kazdy projekt ma swoje wlasne repo. Jak sa jakies czesci wspolne to wyciaga sie je do osobnych repozytoriow.
+> Każdy projekt / aplikacja ma swoje własne repozytorium. W wielu projektach w których pracowałem, to obecnie standard pisania aplikacji. Tworzy się repozytoria z monolitami. api, admin, mobile, web, kazdy projekt ma swoje wlasne repo. Jak są jakieś części wspólne to wyciąga się je do osobnych repozytoriów.
 
 ---
 
@@ -81,17 +78,11 @@ code {
 
 ---
 
-<!-- _footer: '' -->
-
-![height:650](images/monorepo-polyrepo.svg)
-
----
-
 ### Monolit
 
-> Jeśli repozytorium zawiera masywną aplikację bez podziału i hermetyzacji poszczególnych części, jest to po prostu duże repo. Nie oznacza to jednak wcale, ze jest to monorepo. W rzeczywistości takie repo jest nadmiernie monolityczne, co często jest pierwszą rzeczą, jaka przychodzi ludziom do głowy, gdy myślą o monorepo.
+> Jeśli repozytorium zawiera masywną aplikację bez podziału i hermetyzacji poszczególnych części, jest to po prostu duże repo. Nie oznacza to jednak wcale, że jest to monorepo. W rzeczywistości, takie repo jest nadmiernie monolityczne, co często jest pierwszą rzeczą, jaka przychodzi ludziom do głowy, gdy myślą o monorepo.
 
-Monolit != Monorepo.
+`Monolit != Monorepo`
 
 ---
 
@@ -102,6 +93,12 @@ Monolit != Monorepo.
 ---
 
 ![images/monolith-modular.svg](images/monolith-modular.svg)
+
+---
+
+<!-- _footer: '' -->
+
+![height:650](images/monorepo-polyrepo.svg)
 
 ---
 
@@ -123,15 +120,62 @@ code {
 
 ---
 
-## No to jedziemy, monorepo i moduły 🚀
+## NX Dev
+
+https://nx.dev
+
+> `NX` jest jak `VSCode` wśród narzędzi do budowania. Core Nx'a umożliwia tworzenie i analizę grafu projektu, orkiestrację, wykonywanie zadań oraz generowanie kodu.
 
 ---
 
-## Proces budowania aplikacji
+Przyjrzyjmy się temu z lotu ptaka 🦅
 
 ---
 
-### Określamy jakie ficzery sa do zaimplementowania
+## Tworzenie kodu
+
+```sh
+nx generate [generator] [project]
+
+nx generate @nrwl/react:app my-app
+nx generate @nrwl/react:lib shared-button
+nx generate @nrwl/react:storybook-configuration shared-button
+nx generate @nrwl/js:lib my-lib
+```
+
+Nx rozwiązuje problem konfiguracji narzędzi takich jak: Jest, Babel, TypeScript, Webpack, Prettier, Eslint
+
+---
+
+## Działanie na kodzie
+
+```sh
+nx [target] [project]
+nx build app
+nx serve app
+nx test app
+```
+
+Dzięki Nx każdy projekt ma te same polecenia do budowania, testowania i uruchamiania.
+
+---
+
+## Rozumienie kodu
+
+```sh
+nx graph
+nx list
+```
+
+Nx analizuje strukturę naszego kodu co umożliwia podglad jakie moduly są od siebie zależne, jak ze sobą współpracują. Wykrywa zmiany w kodzie co pozwala wykonywać polecenia tylko na zmodyfikowanych projektach.
+
+---
+
+## Zapamiętajmy i wróćmy do aplikacji...
+
+---
+
+## Określamy jakie ficzery sa do zaimplementowania
 
 ---
 
@@ -161,48 +205,7 @@ endpointy do wcześniej wymienionych funkcjonalności:
 
 ---
 
-## NX Dev
-
-https://nx.dev
-
-> `NX` jest jak `VSCode` wśród narzędzi do budowania. Core Nx'a umożliwia tworzenie i analizę grafu projektu, orkiestrację, wykonywanie zadań oraz generowanie kodu.
-
----
-
-## Tworzenie kodu
-
-```sh
-nx generate [generator] [project]
-
-nx generate @nrwl/react:app my-app
-nx generate @nrwl/react:lib shared-button
-nx generate @nrwl/react:storybook-configuration shared-button
-nx generate @nrwl/js:lib my-lib
-```
-
----
-
-## Działanie na kodzie
-
-```sh
-nx [target] [project]
-nx build app
-nx serve app
-nx test app
-```
-
----
-
-## Rozumienie kodu
-
-```sh
-nx graph
-nx list
-```
-
----
-
-### Start projektu
+## Rozpoczęcie projektu
 
 ---
 
@@ -216,13 +219,13 @@ nx list
 
 <!-- TODO: -->
 
-nie miałem projektu UI, wiec na samym poczatku zaczalem od robienia frontu w React Native
+nie miałem projektu UI, więc na samym poczatku zacząłem od robienia aplikacji mobilnej w React Native
 
 ![images/first-app.png](images/first-app.png)
 
 ---
 
-Polecenie tworzy dwie aplikacje:
+Polecenie tworzy dwie aplikacje w katalogu `apps/`
 
 - tweeter-mobile
 - tweeter-mobile-e2e
@@ -231,7 +234,7 @@ Polecenie tworzy dwie aplikacje:
 
 ## NX Console
 
-Mozna uzywac wtyczki do VSCode, ktora pozwala zapomniec o poleceniach i flagach do uzycia w konsoli
+Można używać wtyczki do VSCode, która pozwala zapomnieć o poleceniach i flagach, których używalibyśmy z poziomu CLI
 
 ---
 
@@ -239,7 +242,7 @@ Mozna uzywac wtyczki do VSCode, ktora pozwala zapomniec o poleceniach i flagach 
 
 ---
 
-W kolejnym kroku zrobilem testowe dane i skorzystałem z nich w komponentach
+W kolejnym kroku zrobiłem paczkę z testowymi danymi z których będę korzystał do wypełnienia UI aplikacji.
 
 ---
 
@@ -276,7 +279,7 @@ Importujemy typy i uzywamy do funkcji generujacej tweety
 
 ---
 
-a nastepnie generujemy testowe tweety i eksporujemy z paczki
+a następnie generujemy testowe tweety i eksporujemy z paczki
 
 ![width:1200](images/test-tweets.png)
 
@@ -284,7 +287,7 @@ a nastepnie generujemy testowe tweety i eksporujemy z paczki
 
 ### Współdzielenie komponentów
 
-Zastanowilem sie jak mozna wspoldzielic komponenty i dla samego faktu pokazania, ze mozna je wspoldzielic uznalem, ze pojde w react-native-web + tailwind
+Zastanowiłem się jak mozna wspoldzielic komponenty i dla samego faktu pokazania, że mozna je wspoldzielić między projektami, uznałem, ze stworzę je przy użyciu paczek: `react-native-web` oraz `tailwind`
 
 czyli kolejna paczka..
 
@@ -307,7 +310,7 @@ czyli kolejna paczka..
 
 ---
 
-Co jesli na webie ma to wygladac inaczej?
+### Co jesli na webie ma to wygladac inaczej?
 
 ---
 
@@ -333,13 +336,17 @@ Zbudowałem zestaw gotowych komponentów i wyeksportowalem je z paczki
 
 ---
 
+### a następnie użyłem ich do budowania ekranów aplikacji
+
+---
+
 <!-- _footer: '' -->
 
 ![bg fit](images/tweets-react-native.png)
 
 ---
 
-Tworzyłem testowe dane, podpinałem kolejne komponenty tworzylem ekrany i w rezultacie wyszło:
+Tworzyłem testowe dane dla wszystkich domen, podpinałem kolejne komponenty, tworzyłem ekrany i w rezultacie wyszło:
 
 ---
 
@@ -351,7 +358,7 @@ Tworzyłem testowe dane, podpinałem kolejne komponenty tworzylem ekrany i w rez
 
 ---
 
-Android nie wygląda juz tak dobrze, ale uruchomiłem go tylko raz :) Więc jest i tak całkiem nieźle
+#### Android nie wygląda juz tak dobrze, ale uruchomiłem go tylko raz :) Więc jest i tak całkiem nieźle:
 
 ---
 
@@ -363,13 +370,13 @@ Android nie wygląda juz tak dobrze, ale uruchomiłem go tylko raz :) Więc jest
 
 ---
 
-Zostawmy na chwilę apkę mobilną
+## Zostawmy na chwilę apkę mobilną
 
 ---
 
 ### Backend
 
-Mamy wyboru mamy trzy pluginy:
+Oficjalnie mamy wyboru mamy trzy pluginy:
 
 - @nrwl/express
 - @rnwl/nest
@@ -389,13 +396,13 @@ Napisalem w `express.js` za pomoca metodyki TDD (tutaj chcialem byc pewny, ze ws
 npm install --save-dev @nrwl/express
 ```
 
-i generuję apke za pomoca cli 🧑‍💻
+i generuję apke za pomocą CLI 🧑‍💻
 
 ```sh
 nx g @nrwl/express:app api
 ```
 
-albo wyklikuje z UI 😎
+albo wyklikuję z UI 😎
 
 ---
 
@@ -409,9 +416,20 @@ albo wyklikuje z UI 😎
 
 ![bg left:38%](images/generate-api-3-complete.png)
 
-Ta aplikacja, z perspektywy Nx nie ma wyodrębnionych bibliotek, ale zdecydowanie nie jest monolityczna
+Ta aplikacja, z perspektywy Nx nie ma wyodrębnionych bibliotek, ale zdecydowanie jest podzielona na moduły, które można by wydzielić do osobnych bibliotek.
 
 ---
+
+`Przykład kontrolera`
+
+<!-- Scoped style -->
+<style scoped>
+code {
+  font-size: 50px;
+  right: 0;
+  position: absolute;
+}
+</style>
 
 ![bg width:105%](images/tweets-response-api.png)
 
@@ -419,19 +437,21 @@ Ta aplikacja, z perspektywy Nx nie ma wyodrębnionych bibliotek, ale zdecydowani
 
 ### Klient API
 
-Po napisaniu backendu napisalem biblioteke, ktora jest klientem do tego api
+Po napisaniu backendu napisalem bibliotekę, która jest klientem do tego api
 
 ---
 
 <!-- _footer: '' -->
 
-![bg fit](images/client-example.png)
+![bg fit left](images/client-example.png)
+
+Biblioteka jest zbiorem gotowych funkcji, dzięki którym komunikujemy się z API. Jeśli dorzucimy do niej typy to mamy perfekcyjną warstwę komunikacji serwer klient.
 
 ---
 
 ### Data provider
 
-`react-query` do fetchowania i cache'owania danych. Mozna reuzywac miedzy aplikacjami
+`react-query` do fetchowania i cache'owania danych. Można reużywać między aplikacjami.
 
 ---
 
@@ -452,6 +472,7 @@ Po napisaniu backendu napisalem biblioteke, ktora jest klientem do tego api
 ---
 
 ### Kończenie aplikacji mobilnej
+
 Wszystkie ekrany aplikacji mobilnej wyciagnalem do zewnętrznego modułu `native-screens`. Dzieki NX wygenerowanie nowego modulu jest banalnie proste.
 
 ```sh
@@ -460,7 +481,62 @@ nx g @nrwl/react-native:library native-screens
 
 ---
 
-## Polecenia dostępne w NX
+## Aplikacja webowa
+
+wygenerowałem aplikacje webową za pomoca generatora Nx React. Użyłem gotowych komponentów z aplikacji mobilnej.
+
+---
+
+![bg fit](images/web-tweets.png)
+
+---
+
+![bg fit](images/web-tweet.png)
+
+---
+
+## Panel administratora
+
+---
+
+![bg fit](images/admin-users.png)
+
+---
+
+![bg fit](images/admin-tweets.png)
+
+---
+
+## Co mozna bylo jeszcze wspoldzielić poza częściami UI?
+
+- miedzy wszystkimi aplikacjami - typy, helpery, schemas
+- miedzy wszystkimi aplikacjami UI - propsy komponentów, logika formularzy, data-providers
+
+---
+
+![bg fit](images/share-create-tweet-schema.png)
+
+---
+
+![bg fit](images/share-create-tweet-router.png)
+
+---
+
+![bg fit](images/share-create-tweet-form.png)
+
+---
+
+## Reguła którą warto zapamiętać
+
+- 80% logiki idzie do katalogu `libs/`
+- 20% do katalogu `apps/`
+
+- `libs/` to moduły naszych aplikacji ustrukturyzowane w
+- `apps/` to kontenery na te moduły
+
+---
+
+## Polecenia dostępne w NX z poziomu VSCode
 
 ---
 
@@ -472,6 +548,7 @@ nx g @nrwl/react-native:library native-screens
 ---
 
 ## Uruchamianie wielu projektów jednocześnie
+
 ---
 
 <!-- _footer: '' -->
@@ -495,31 +572,6 @@ nx g @nrwl/react-native:library native-screens
 <!-- _footer: '' -->
 
 ![bg width:90%](images/run-many-4.png)
-
----
-
-### Kolejno
-
-1. wygenerowałem aplikacje webowa za pomoca generatora NX React
-2. oraz aplikacje admina za pomocna generatora NX NextJS
-
----
-
-## Co mozna bylo wspoldzielic?
-
-- miedzy wszystkimi aplikacjami - typy, helpery, schemas
-- miedzy wszystkimi aplikacjami UI - proste komponenty UI, propsy tych komponentów, formularze, data-providers
-- api jest zbudowane w formie monolitu
-
----
-
-## Reguła którą warto zapamiętać
-
-- 80% logiki idzie do katalogu `libs/`
-- 20% do katalogu `apps/`
-
-- `libs` to moduły naszych aplikacji ustrukturyzowane w
-- `apps` to kontenety na te moduły
 
 ---
 
@@ -557,20 +609,21 @@ nx g @nrwl/react-native:library native-screens
 
 ---
 
-## co zrobilbym lepiej?
+## co zrobiłbym lepiej?
 
-- z perspektywy czasu zaczalbym od pisania backendu
-- rozbicie na środowiska, bo byl problem przy pisaniu testow i uruchamianiem aplikacji na srodowisku developerskim
+- zacząłbym od pisania backendu
+- rozbicie na środowiska, bo miałem problem przy pisaniu testow i uruchamianiem aplikacji na środowisku developerskim
 
 ---
 
-- rozbiłbym aplikacje api na biblioteki Nx chociaz nie mam pomyslu jak 🤔
+- rozbiłbym aplikacje api na biblioteki i dzieliłbym kod domenowo
+
+![width:600px](images/features.png)
+
+---
+
 - przebudowałbym aplikacje webowa tak, zeby ekrany mogly byc wspoldzielone miedzy web i admin (web jest zbudowany za pomoca `create-react-app`, admin za pomoca `NextJS`)
 - lepsze wspoldzielenie typów
-
----
-
-## Pytania / pomysly?
 
 ---
 
@@ -580,3 +633,4 @@ Repo prezentacji i kodu projektu:
 
 👨‍💻 https://github.com/kacgrzes/infoshare-f3
 
+zachęcam do forkowania i sprawdzania możliwości Nx
