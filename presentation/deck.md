@@ -2,7 +2,7 @@
 marp: true
 theme: infoshare-f3
 size: 16:9
-footer: "![height:25px grayscale:1](images/future3-infoshare-ukraine-logo.svg) · ![height:25px grayscale:1](images/binarapps-logo.svg)"
+footer: '![height:25px grayscale:1](images/future3-infoshare-ukraine-logo.svg) · ![height:25px grayscale:1](images/binarapps-logo.svg)'
 paginate: true
 ---
 
@@ -53,46 +53,7 @@ kacgrzes.io / kacgrzes@gmail.com
 
 ---
 
-<!-- Scoped style -->
-<style scoped>
-code {
-  font-size: 60px;
-}
-</style>
-
-```jsx
-<ScianaTekstu>
-```
-
----
-
-### Sposób #1 - Polyrepo
-
-> Każdy projekt / aplikacja ma swoje własne repozytorium. W wielu projektach w których pracowałem, to obecnie standard pisania aplikacji. Tworzy się repozytoria z monolitami. api, admin, mobile, web, kazdy projekt ma swoje wlasne repo. Jak są jakieś części wspólne to wyciąga się je do osobnych repozytoriów.
-
----
-
-### Sposób #2 - Monorepo
-
-> Cały kod projektu jest trzymany w jedym repozytorium z wieloma bilbliotekami / aplikacjami / projektami.
-
----
-
-### Monolit
-
-> Jeśli repozytorium zawiera masywną aplikację bez podziału i hermetyzacji poszczególnych części, jest to po prostu duże repo. Nie oznacza to jednak wcale, że jest to monorepo. W rzeczywistości, takie repo jest nadmiernie monolityczne, co często jest pierwszą rzeczą, jaka przychodzi ludziom do głowy, gdy myślą o monorepo.
-
-`Monolit != Monorepo`
-
----
-
-### Moduł
-
-> oddzielny twór, przeważnie w postaci osobnego pliku, zawierający zdefiniowany interfejs, a także implementacje typów wartości, klas, zmiennych, stałych oraz treści procedur i funkcji. Jest to podstawowy element koncepcji programowania modularnego pozwalający na podział kodu programu na funkcjonalne części i umieszczenie ich w osobnych modułach, które są ponadto niezależne i wymienne.
-
----
-
-![images/monolith-modular.svg](images/monolith-modular.svg)
+![bg](images/monolith-modular.svg)
 
 ---
 
@@ -102,21 +63,12 @@ code {
 
 ---
 
-📖 wiecej na:
-https://monorepo.tools/
+![bg width:1100px](images/spectrum-real-world.svg)
 
 ---
 
-<!-- Scoped style -->
-<style scoped>
-code {
-  font-size: 60px;
-}
-</style>
-
-```
-</ScianaTekstu>
-```
+📖 wiecej na:
+https://monorepo.tools/
 
 ---
 
@@ -128,7 +80,7 @@ https://nx.dev
 
 ---
 
-Przyjrzyjmy się temu z lotu ptaka 🦅
+### Przyjrzyjmy się temu z lotu ptaka 🦅
 
 ---
 
@@ -459,14 +411,6 @@ Biblioteka jest zbiorem gotowych funkcji, dzięki którym komunikujemy się z AP
 
 ---
 
-![bg height:90%](images/tweets-query.png)
-
----
-
-![bg fit](images/comments-query.png)
-
----
-
 ![bg fit](images/delete-user-mutation.png)
 
 ---
@@ -579,11 +523,35 @@ wygenerowałem aplikacje webową za pomoca generatora Nx React. Użyłem gotowyc
 
 ---
 
+<!-- Scoped style -->
+<style scoped>
+h2 {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: white;
+}
+</style>
+
+## cały graf
+
 <!-- _footer: '' -->
 
 ![bg](images/graph-1-all.png)
 
 ---
+
+<!-- Scoped style -->
+<style scoped>
+h2 {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: white;
+}
+</style>
+
+## zaleznosci apki mobilnej
 
 <!-- _footer: '' -->
 
@@ -591,17 +559,53 @@ wygenerowałem aplikacje webową za pomoca generatora Nx React. Użyłem gotowyc
 
 ---
 
+<!-- Scoped style -->
+<style scoped>
+h2 {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: white;
+}
+</style>
+
+## wspoldzielone formularze
+
 <!-- _footer: '' -->
 
 ![bg](images/graph-3-shared-forms.png)
 
 ---
 
+<!-- Scoped style -->
+<style scoped>
+h2 {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: white;
+}
+</style>
+
+## zaleznosci api
+
 <!-- _footer: '' -->
 
 ![bg](images/graph-4-api.png)
 
 ---
+
+<!-- Scoped style -->
+<style scoped>
+h3 {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: white;
+}
+</style>
+
+### odfiltrowana apka mobilna
 
 <!-- _footer: '' -->
 
